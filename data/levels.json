@@ -1,0 +1,16 @@
+[
+  {
+    "width":  4,
+    "height": 4,
+    "start":  {"x": 0, "y": 0, "faces": [3, 0, 2, 5, 4, 1]},
+    "target": {"x": 0, "y": 0},
+    "solution": "ESENESSSWNWSWNNN"
+  },
+  {
+    "width":  8,
+    "height": 8,
+    "start":  {"x": 0, "y": 0, "faces": [3, 0, 2, 5, 4, 1]},
+    "target": {"x": 0, "y": 0},
+    "solution": "ESENESSSWNWSWNNN"
+  }
+]

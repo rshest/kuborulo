@@ -1,0 +1,18 @@
+
+{
+	"version": "0.1.0",
+	"command": "${workspaceRoot}/node_modules/.bin/webpack-dev-server",
+	"isShellCommand": true,
+	"args": [
+		"--progress",
+    "--colors"
+	],
+	"echoCommand": true,
+	"tasks": [
+		{
+			"suppressTaskName": true,
+			"taskName": "webpack srv",
+			"isBuildCommand": true
+		}
+	]
+}
