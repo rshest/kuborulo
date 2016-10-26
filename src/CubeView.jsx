@@ -24,7 +24,7 @@ class CubeView extends React.Component {
     let step = 0;
     let t = 0;
     let animate = () => {
-      t += 0.01;
+      t += 0.05;
       let x = this.state.x;
       let y = this.state.y;
       let face = this.state.face;

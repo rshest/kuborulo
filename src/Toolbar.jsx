@@ -2,7 +2,11 @@ import React from 'react';
      
 class Toolbar extends React.Component {
   render() {    
-    return <p>Hello</p>;
+    return (
+      <div>
+        <span>Kuborulo!</span>
+      </div>
+    );
   }
 }
 

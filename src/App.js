@@ -7,9 +7,13 @@ import Toolbar from './Toolbar.jsx';
 class App extends React.Component {
   render() {    
     return (
-      <div>
-        <Toolbar/>
-        <PuzzleView/>
+      <div className="outer">
+        <div className="container">
+          <PuzzleView/>
+        </div>
+        <div className="container">
+          <Toolbar/>
+        </div>
       </div>
     );
   }
