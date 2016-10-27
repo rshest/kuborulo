@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import PuzzleView from './PuzzleView.jsx';
-import Toolbar from './Toolbar.jsx';
+import PuzzleView from './components/PuzzleView.jsx';
+import Toolbar from './components/Toolbar.jsx';
 
 class App extends React.Component {
   render() {    

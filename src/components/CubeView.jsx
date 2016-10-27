@@ -1,6 +1,6 @@
 import React from 'react';
 import THREE from 'three';
-import {Board, MOVE_OFFSETS, FACE_MOVEMENT} from './Board';
+import {Board, MOVE_OFFSETS, FACE_MOVEMENT} from '../model/Board';
 
 const CELL_SIDE = 20;
 const CUBE_COLOR = 0xFFFFFF;

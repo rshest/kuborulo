@@ -67,6 +67,7 @@ class PuzzleView extends React.Component {
   }
 
   render() {
+
     return (
       <React3
         width={WIDTH}

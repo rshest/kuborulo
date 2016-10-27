@@ -1,6 +1,6 @@
 import React from 'react';
 import THREE from 'three';
-import {Board, MOVE_OFFSETS} from './Board';
+import {Board, MOVE_OFFSETS} from '../model/Board';
 
 const FRAME_UV_WIDTH = 0.25;
 const PATH_COLOR = 0x779988;

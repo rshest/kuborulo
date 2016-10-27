@@ -12,10 +12,13 @@ class CellSelector extends React.Component {
   }
 
   render() {
+    let x = CELL_SIDE*this.props.cellX;
+    let y = CELL_SIDE*this.props.cellY;
+
     let uvs = [];
     return (
       <mesh
-        position={new THREE.Vector3(-10, 0.2, -10)}
+        position={new THREE.Vector3(x, 0.2, y)}
         rotation={new THREE.Euler(Math.PI/2, 0, 0, 'XYZ')}>
         <planeGeometry
           width={CELL_SIDE}
