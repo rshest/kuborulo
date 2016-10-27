@@ -1,6 +1,6 @@
-import React from 'react';
-     
-class Toolbar extends React.Component {
+import React, {Component} from 'react';
+
+export default class Toolbar extends Component {
   render() {    
     return (
       <div>
@@ -9,6 +9,4 @@ class Toolbar extends React.Component {
     );
   }
 }
-
-export default Toolbar;
  

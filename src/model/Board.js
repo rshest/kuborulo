@@ -1,7 +1,4 @@
-'use strict';
-
 const HEARTBEAT_PERIOD = 10000000;
-
 
 /**
  * Enumeration for both cube faces and movement direction
@@ -16,7 +13,7 @@ const FACE = {
   ANY   : 6   //  wildcard, "any side"
 };
 const NUM_FACES = 6;
-const NUM_DIRS = 4;
+const NUM_DIRS = 4; 
 
 const MOVE_MAPPING = [
   [3, 0, 2, 5, 4, 1], // RIGHT
@@ -32,8 +29,9 @@ const FACE_MOVEMENT = [
   [FACE.UP, FACE.RIGHT, FACE.FRONT, FACE.LEFT, FACE.BACK, FACE.DOWN]  // roll up
 ];
 
-const MOVE_DIRS    = [FACE.RIGHT, FACE.DOWN, FACE.LEFT, FACE.UP];
 const MOVE_OFFSETS = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+
+const MOVE_DIRS    = [FACE.RIGHT, FACE.DOWN, FACE.LEFT, FACE.UP];
 const MOVE_LABELS  = {0:'', 1:'E', 2:'S', 3: 'W', 4: 'N'};
 
 const MOVE_RESULT = {
@@ -242,5 +240,5 @@ class Board {
   
 }
 
-export { FACE, MOVE_OFFSETS, FACE_MOVEMENT, Board };
 
+export { FACE, MOVE_OFFSETS, FACE_MOVEMENT, Board };

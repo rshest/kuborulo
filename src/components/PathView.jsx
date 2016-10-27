@@ -1,5 +1,5 @@
-import React from 'react';
-import THREE from 'three';
+import React, {Component} from 'react';
+import THREE, {Vector3, Vector2, Euler} from 'three';
 import {Board, MOVE_OFFSETS} from '../model/Board';
 
 const FRAME_UV_WIDTH = 0.25;
@@ -7,7 +7,7 @@ const PATH_COLOR = 0x779988;
 const CELL_SIDE = 20;
 const PATH_OPACITY = 0.7;
 
-class PathView extends React.Component {
+export default class PathView extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -71,7 +71,7 @@ class PathView extends React.Component {
       for (let j = 0; j < CORNERS.length; j++) {
         let [x, y] = TRANS[rot](CORNERS[j]);
         x = (x + frame)*FRAME_UV_WIDTH;
-        uv.push(new THREE.Vector2(x, y));
+        uv.push(new Vector2(x, y));
       }
       const idx = (h - posy - 1) + level.width*(w - posx - 1);
 
@@ -87,8 +87,8 @@ class PathView extends React.Component {
     
     return (
       <mesh
-        position={new THREE.Vector3(0, 0.1, 0)}
-        rotation={new THREE.Euler(Math.PI/2, 0, 0, 'XYZ')}
+        position={new Vector3(0, 0.1, 0)}
+        rotation={new Euler(Math.PI/2, 0, 0, 'XYZ')}
         receiveShadow>
         <planeGeometry
           width={level.width*CELL_SIDE}
@@ -111,5 +111,3 @@ class PathView extends React.Component {
     );
   }
 }
-
-export default PathView;

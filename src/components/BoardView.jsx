@@ -1,10 +1,10 @@
-import React from 'react';
-import THREE from 'three';
+import React, {Component} from 'react';
+import THREE, {Vector3} from 'three';
 
 const CELL_SIDE = 20;
 const BOARD_HEIGHT = 20;
 
-class BoardView extends React.Component {
+export default class BoardView extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -31,7 +31,7 @@ class BoardView extends React.Component {
         key={key}
         castShadow
         receiveShadow
-        position={new THREE.Vector3(px, -BOARD_HEIGHT*0.5, py)}
+        position={new Vector3(px, -BOARD_HEIGHT*0.5, py)}
         >
         <boxGeometry
           width={CELL_SIDE}
@@ -60,7 +60,6 @@ class BoardView extends React.Component {
   }
 }
 
-export default BoardView;
 
 
 

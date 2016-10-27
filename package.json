@@ -2,6 +2,8 @@
   "name": "kuborulo",
   "version": "1.0.0",
   "description": "Rolling Cube Puzzle",
+  "author": "Ruslan Shestopalyuk",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -14,8 +16,6 @@
     "cubes",
     "3d"
   ],
-  "author": "Ruslan Shestopalyuk",
-  "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",

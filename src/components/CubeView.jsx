@@ -1,12 +1,12 @@
-import React from 'react';
-import THREE from 'three';
+import React, {Component} from 'react';
+import THREE, {Euler, Quaternion, Vector3, Matrix4} from 'three';
 import {Board, MOVE_OFFSETS, FACE_MOVEMENT} from '../model/Board';
 
 const CELL_SIDE = 20;
 const CUBE_COLOR = 0xFFFFFF;
 const TOP_FACE_COLOR = 0x669988;
     
-class CubeView extends React.Component {
+export default class CubeView extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -16,11 +16,12 @@ class CubeView extends React.Component {
       start:  {x: 0, y: 0},
       target: {x: 7, y: 0, faces: [0]}
     };
-
-    //  ---- cut
     let board = new Board(level);
     let sol = board.solve();
     let path = sol.result;
+    
+    //  ---- cut
+    
     let step = 0;
     let t = 0;
     let animate = () => {
@@ -71,12 +72,12 @@ class CubeView extends React.Component {
     const XZ_AXIS = [[1,  0], [0, 1], [-1, 0], [0, -1]];
     const [ax, az] = XZ_AXIS[dir];
     const angle = Math.PI*0.5*t;
-    const axis = new THREE.Vector3(ax, 0, az);
-    return new THREE.Matrix4().makeRotationAxis(axis, angle);
+    const axis = new Vector3(ax, 0, az);
+    return new Matrix4().makeRotationAxis(axis, angle);
   }
 
   getOrientationTransform(face) {
-    let tm = new THREE.Matrix4();
+    let tm = new Matrix4();
     let path = Board.orientPath(face);  
     for (let i = 0; i < path.length; i++) {
       tm.premultiply(this.getRotationTransform(path[i] - 1, 1));
@@ -99,9 +100,9 @@ class CubeView extends React.Component {
     const unshift = [x - dx*hs, 0, y - dz*hs];
     
     let res = this.getOrientationTransform(face);
-    res.premultiply(new THREE.Matrix4().makeTranslation(...shift));
+    res.premultiply(new Matrix4().makeTranslation(...shift));
     res.premultiply(this.getRotationTransform(dir, t));
-    res.premultiply(new THREE.Matrix4().makeTranslation(...unshift));
+    res.premultiply(new Matrix4().makeTranslation(...unshift));
     
     return res;
   }
@@ -109,9 +110,9 @@ class CubeView extends React.Component {
   render() {
     const trans = this.getTransform(this.state.x, this.state.y, 
       this.state.moveDir, this.state.face, this.state.movePhase);
-    const pos = new THREE.Vector3();
-    const rot = new THREE.Quaternion();
-    const scale = new THREE.Vector3();
+    const pos = new Vector3();
+    const rot = new Quaternion();
+    const scale = new Vector3();
     trans.decompose(pos, rot, scale);
     
     return (
@@ -135,8 +136,8 @@ class CubeView extends React.Component {
           </meshLambertMaterial>
         </mesh>
         <mesh
-          position={new THREE.Vector3(0, CELL_SIDE*0.5 + 0.05, 0)}
-          rotation={new THREE.Euler(Math.PI/2, 0, 0, 'XYZ')}
+          position={new Vector3(0, CELL_SIDE*0.5 + 0.05, 0)}
+          rotation={new Euler(Math.PI/2, 0, 0, 'XYZ')}
           receiveShadow>
           <planeGeometry
             width={CELL_SIDE}
@@ -156,5 +157,3 @@ class CubeView extends React.Component {
     );
   }
 }
-
-export default CubeView;

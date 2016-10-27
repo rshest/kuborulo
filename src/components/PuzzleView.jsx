@@ -1,6 +1,5 @@
-import THREE from 'three';
-
-import React from 'react';
+import THREE, {Vector3, Vector2, Plane} from 'three';
+import React, {Component} from 'react';
 import React3 from 'react-three-renderer';
 
 
@@ -12,12 +11,12 @@ import BoardView from './BoardView.jsx';
 const WIDTH = 640;
 const HEIGHT = 480;
 
-class PuzzleView extends React.Component {
+export default class PuzzleView extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      cameraPosition: new THREE.Vector3(-150, 200, 0)
+      cameraPosition: new Vector3(-150, 200, 0)
     };
 
     let that = this;
@@ -33,10 +32,10 @@ class PuzzleView extends React.Component {
 
     window.onmouseup = () => down = false;
 
-    let plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+    let plane = new Plane(new Vector3(0, 1, 0), 0);
     let raycaster = new THREE.Raycaster();
-    let mouse = new THREE.Vector2();
-    let intersection = new THREE.Vector3();
+    let mouse = new Vector2();
+    let intersection = new Vector3();
 
     window.onmousemove = (e) => {
       e.preventDefault();
@@ -47,7 +46,7 @@ class PuzzleView extends React.Component {
         rot += dx*0.01;
         let cy = Math.min(300, Math.max(100, that.state.cameraPosition.y+dy));
         const newState = {
-          cameraPosition: new THREE.Vector3(Math.cos(rot)*150, cy, Math.sin(rot)*150)
+          cameraPosition: new Vector3(Math.cos(rot)*150, cy, Math.sin(rot)*150)
         };
 
         that.setState(newState);
@@ -87,7 +86,7 @@ class PuzzleView extends React.Component {
             fov={45}
             near={1}
             position={this.state.cameraPosition}
-            lookAt={new THREE.Vector3(0, 25, 0)}
+            lookAt={new Vector3(0, 25, 0)}
             name="mainCamera"
             ref={(cam) => this.camera = cam}
             />
@@ -95,8 +94,8 @@ class PuzzleView extends React.Component {
           <directionalLight
             color={0xffffff}
             intensity={0.8}
-            position={new THREE.Vector3(-120, 200, -100)}
-            lookAt={new THREE.Vector3(0, 0, 0)}
+            position={new Vector3(-120, 200, -100)}
+            lookAt={new Vector3(0, 0, 0)}
 
             castShadow
             shadowCameraNear={100}
@@ -121,7 +120,5 @@ class PuzzleView extends React.Component {
     );
   }
 }
-
-export default PuzzleView;
 
  

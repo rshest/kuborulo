@@ -2,20 +2,9 @@ module.exports = {
   "env": {
     "browser": true,
     "es6": true,
-    "jasmine": true
+    "jasmine": true,
+    "node": true
   },
-  "extends": ["eslint:recommended", "plugin:jasmine/recommended"],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react",
-    "jasmine"
-  ],
   "rules": {
     "indent": [
       "error",
@@ -41,5 +30,20 @@ module.exports = {
     "jasmine/no-suite-callback-args": 2,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-  }
+  },
+  "plugins": [
+    "react",
+    "jasmine"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended", 
+    "plugin:jasmine/recommended"
+  ]
 };
