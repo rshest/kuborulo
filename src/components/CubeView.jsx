@@ -11,9 +11,20 @@ export default class CubeView extends Component {
     super(props, context);
 
     const level = props.level;
+    this.state = {
+      x: level.start.x,
+      y: level.start.y,
+      face: level.start.faces !== undefined ? level.start.faces[0] : 0, 
+      moveDir: 0,
+      movePhase: 0,
+      level: level
+    };
+  }
+
+  pathAnim() {
+    const level = this.props.level;
     const path = Board.textToPath(level.solution);
     
-    //  ---- cut
     let step = 0;
     let t = 0;
     let animate = () => {
@@ -48,16 +59,6 @@ export default class CubeView extends Component {
     };
 
     setTimeout(animate, 10);
-    //  ---- cut
-
-    this.state = {
-      x: level.start.x,
-      y: level.start.y,
-      face: level.start.faces !== undefined ? level.start.faces[0] : 0, 
-      moveDir: 0,
-      movePhase: 0,
-      level: level
-    };
   }
 
   getRotationTransform(dir, t = 0) {

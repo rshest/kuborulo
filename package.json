@@ -17,6 +17,9 @@
     "3d"
   ],
   "devDependencies": {
+    "@types/react": "^0.14.43",
+    "@types/react-dom": "^0.14.18",
+    "@types/three": "0.0.24",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-runtime": "^6.15.0",
@@ -28,11 +31,9 @@
     "eslint-plugin-jasmine": "^1.8.1",
     "eslint-plugin-react": "^6.4.1",
     "jasmine": "^2.5.2",
+    "json-loader": "^0.5.4",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2",
-    "@types/react": "^0.14.43",
-    "@types/react-dom": "^0.14.18",
-    "@types/three": "0.0.24"
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "react": "^15.3.1",

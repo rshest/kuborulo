@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import React3 from 'react-three-renderer';
 import {Board} from '../model/Board';
 
+import levels from '../../data/levels.json';
 
 
 import PathView from './PathView.jsx';
@@ -27,21 +28,8 @@ export default class PuzzleView extends Component {
   constructor(props, context) {
     super(props, context);
 
-    // let level = {
-    //   "width":  2,
-    //   "height":3,
-    //   "start":  {"x": 1, "y": 2, "faces": [4]},
-    //   "target": {"x": 0, "y": 2}
-    // };
-
-    let level = {
-  "width":  8,
-  "height": 8,
-  "start":  {"x": 0, "y": 0},
-  "target": {"x": 7, "y": 0, "faces": [0]},
-  "solution": "EEESWSWNWSSSSSSENESENNWWNNESENNESSENESSWWSSENESENNNNNNWSWNWNEEE"
-};
-
+    console.log(levels); 
+    let level = levels[2];
     if (level.solution === undefined) {
       let board = new Board(level);
       let sol = board.solve();
