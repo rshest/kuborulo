@@ -10,15 +10,8 @@ export default class CubeView extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const level = {
-      width:  8,
-      height: 8,
-      start:  {x: 0, y: 0},
-      target: {x: 7, y: 0, faces: [0]}
-    };
-    let board = new Board(level);
-    let sol = board.solve();
-    let path = sol.result;
+    const level = props.level;
+    const path = Board.textToPath(level.solution);
     
     //  ---- cut
     

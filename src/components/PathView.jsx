@@ -9,21 +9,7 @@ const PATH_OPACITY = 0.7;
 
 export default class PathView extends Component {
   constructor(props, context) {
-    super(props, context);
-
-    const level = {
-      width:  8,
-      height: 8,
-      start:  {x: 0, y: 0},
-      target: {x: 7, y: 0, faces: [0]}
-    };
-
-    let board = new Board(level);
-    let sol = board.solve();
-    this.state = {
-      path: sol.result, 
-      level: level
-    };
+    super(props, context);    
   }
 
 
@@ -42,7 +28,7 @@ export default class PathView extends Component {
       [[2, 1], [2, 0], [2, 3], [2, 2], [0, 0]]];
     
     const CORNERS = [[0, 0], [1, 0], [1, 1], [0, 1]];
-    const level = this.state.level;
+    const level = this.props.level;
     const [w, h] = [level.width, level.height];
     const size = w*h;
 
@@ -82,8 +68,11 @@ export default class PathView extends Component {
   }
 
   render() {
-    let uvs = [this.makeUVs(this.state.path)];
-    const level = this.state.level;
+    const level = this.props.level;
+    const path = Board.textToPath(level.solution);
+
+    let uvs = [this.makeUVs(path)];
+    const {width, height} = level;
     
     return (
       <mesh
@@ -91,10 +80,10 @@ export default class PathView extends Component {
         rotation={new Euler(Math.PI/2, 0, 0, 'XYZ')}
         receiveShadow>
         <planeGeometry
-          width={level.width*CELL_SIDE}
-          height={level.height*CELL_SIDE}
-          widthSegments={level.width}
-          heightSegments={level.height}
+          width={width*CELL_SIDE}
+          height={height*CELL_SIDE}
+          widthSegments={width}
+          heightSegments={height}
           dynamic
           faceVertexUvs={uvs}/>
         <meshLambertMaterial

@@ -29,10 +29,10 @@ const FACE_MOVEMENT = [
   [FACE.UP, FACE.RIGHT, FACE.FRONT, FACE.LEFT, FACE.BACK, FACE.DOWN]  // roll up
 ];
 
-const MOVE_OFFSETS = [[1, 0], [0, 1], [-1, 0], [0, -1]];
-
-const MOVE_DIRS    = [FACE.RIGHT, FACE.DOWN, FACE.LEFT, FACE.UP];
-const MOVE_LABELS  = {0:'', 1:'E', 2:'S', 3: 'W', 4: 'N'};
+const MOVE_OFFSETS  = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+const MOVE_DIRS     = [FACE.RIGHT, FACE.DOWN, FACE.LEFT, FACE.UP];
+const MOVE_TO_LABEL = {0:'', 1:'E', 2:'S', 3: 'W', 4: 'N'};
+const LABEL_TO_MOVE = {'':0, 'E':1, 'S':2, 'W':3, 'N':4};
 
 const MOVE_RESULT = {
   TARGET      : 0,  //  the move lands at target
@@ -54,7 +54,10 @@ function makeState({start: {x, y, faces}}) {
 class Board {
   
   static pathToText(path) {
-    return path.map(d => MOVE_LABELS[d]).join('');
+    return path.map(d => MOVE_TO_LABEL[d]).join('');
+  }
+  static textToPath(text) {
+    return text.split('').map(d => LABEL_TO_MOVE[d]).join('');
   }
 
   static orientPath(face) {

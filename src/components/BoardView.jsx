@@ -3,29 +3,20 @@ import THREE, {Vector3} from 'three';
 
 const CELL_SIDE = 20;
 const BOARD_HEIGHT = 20;
+const FACE_COLOR_ODD = 0xAAAA77;
+const FACE_COLOR_EVEN = 0xFFFFAA;
 
 export default class BoardView extends Component {
   constructor(props, context) {
     super(props, context);
-
-    const level = {
-      width:  8,
-      height: 8,
-      start:  {x: 0, y: 0},
-      target: {x: 7, y: 0, faces: [0]}
-    };
-
-    this.state = {
-      level: level
-    };
   }
 
   box(x, y) {
-    const [w, h] = [this.state.level.width, this.state.level.height];
-    const key = x + y*w;
-    const px = x*CELL_SIDE - (w - 1)*CELL_SIDE*0.5;
-    const py = y*CELL_SIDE - (h - 1)*CELL_SIDE*0.5;
-    const color = (x + y)%2 == 1 ? 0xAAAA77 : 0xFFFFAA;
+    const {width, height} = this.props.level;
+    const key = x + y*width;
+    const px = x*CELL_SIDE - (width  - 1)*CELL_SIDE*0.5;
+    const py = y*CELL_SIDE - (height - 1)*CELL_SIDE*0.5;
+    const color = (x + y)%2 == 1 ? FACE_COLOR_ODD : FACE_COLOR_EVEN;
     return (
       <mesh
         key={key}
@@ -50,9 +41,11 @@ export default class BoardView extends Component {
   }
 
   render() {
+    const {width, height} = this.props.level;
+
     var boxes = [];
-    for (let i = 0; i < this.state.level.width; i++) {
-      for (let j = 0; j < this.state.level.height; j++) {
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
         boxes.push(this.box(j, i));
       }
     }

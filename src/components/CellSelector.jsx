@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import THREE, {Vector3, Euler} from 'three';
 
 const CELL_SIDE = 20;
-
 const SEL_COLOR = 0x33FF33;
-const SEL_OPACITY = 0.7; 
+const SEL_OPACITY = 0.3; 
 
 export default class CellSelector extends Component {
   constructor(props, context) {
@@ -17,7 +16,7 @@ export default class CellSelector extends Component {
 
     return (
       <mesh
-        position={new Vector3(10, 0.2, 10)}
+        position={new Vector3(x, 0.2, y)}
         rotation={new Euler(Math.PI/2, 0, 0, 'XYZ')}>
         <planeGeometry
           width={CELL_SIDE}
