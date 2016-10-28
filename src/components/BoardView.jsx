@@ -42,11 +42,12 @@ export default class BoardView extends Component {
 
   render() {
     const {width, height} = this.props.level;
+    console.log(width);
 
     var boxes = [];
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < height; j++) {
-        boxes.push(this.box(j, i));
+        boxes.push(this.box(i, j));
       }
     }
     return (<group>{boxes}</group>);

@@ -24,22 +24,26 @@ export default class PuzzleView extends Component {
     super(props, context);
 
     // let level = {
-    //   width:  8,
-    //   height: 8,
-    //   start:  {x: 0, y: 0},
-    //   target: {x: 7, y: 0, faces: [0]},
+    //   "width":  2,
+    //   "height":3,
+    //   "start":  {"x": 1, "y": 2, "faces": [4]},
+    //   "target": {"x": 0, "y": 2}
     // };
 
     let level = {
-      width:  8,
-      height: 8,
-      start:  {x: 2, y: 3, faces: [1]},
-      target: {x: 2, y: 3},
+      "width":  6,
+      "height": 4,
+      "start":  {"x": 1, "y": 3, "faces": [4]},
+      "target": {"x": 0, "y": 3}
+      //"solution": "EEEENWNENWWSSWWNENWWSSS"
     };
 
-    let board = new Board(level);
-    let sol = board.solve();
-    level.solution = Board.pathToText(sol.result);
+    if (level.solution === undefined) {
+      let board = new Board(level);
+      let sol = board.solve();
+      level.solution = Board.pathToText(sol.result);
+      console.log(level.solution);
+    }
 
     this.state = {
       cameraPosition: new Vector3(-150, 200, 0),

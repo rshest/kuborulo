@@ -1,16 +1,40 @@
 [
-  {
-    "width":  4,
-    "height": 4,
-    "start":  {"x": 0, "y": 0, "faces": [3, 0, 2, 5, 4, 1]},
-    "target": {"x": 0, "y": 0},
-    "solution": "ESENESSSWNWSWNNN"
-  },
-  {
-    "width":  8,
-    "height": 8,
-    "start":  {"x": 0, "y": 0, "faces": [3, 0, 2, 5, 4, 1]},
-    "target": {"x": 0, "y": 0},
-    "solution": "ESENESSSWNWSWNNN"
-  }
+{
+  "width":  4,
+  "height": 4,
+  "start":  {"x": 0, "y": 0, "faces": [1]},
+  "target": {"x": 0, "y": 0},
+  "solution": "ESENESSSWNWSWNNN"
+},
+{
+  "width":  8,
+  "height": 8,
+  "start":  {x: 0, y: 0},
+  "target": {x: 7, y: 0, faces: [0]},
+  "solution": 'EEESWSWNWSSSSSSENESENNWWNNESENNESSENESSWWSSENESENNNNNNWSWNWNEEE'
+},
+
+{
+  "width":  5,
+  "height": 5,
+  "start":  {"x": 0, "y": 0, "faces": [2]},
+  "target": {"x": 4, "y": 4},
+  "solution": "EEEESWSESWWNNWWSESWSEEEE"
+},
+
+{
+  "width":  8,
+  "height": 8,
+  "start":  {x: 2, y: 3, faces: [1]},
+  "target": {x: 2, y: 3},
+  "solution": 'ESEEENNWSWNNNESENESSSSSSSWWNENWWSSWNNWWSESWWNNNNNNNESENESSWWSSEN'
+},
+
+{
+  "width":  8,
+  "height": 8,
+  "start":  {x: 0, y: 0, faces: [2]},
+  "target": {x: 0, y: 0},
+  "solution": 'EEEEEEESSWNWSSEESWWSSENESSWWWWWWWNENWNEEESWSEENNNNNWWSESWWWNENWN'
+}
 ]
