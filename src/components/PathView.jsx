@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import THREE, {Vector3, Vector2, Euler} from 'three';
 import {Board, MOVE_OFFSETS} from '../model/Board';
 
+const CELL_SIDE = 20;
+
 const FRAME_UV_WIDTH = 0.25;
 const PATH_COLOR = 0x779988;
-const CELL_SIDE = 20;
 const PATH_OPACITY = 0.7;
 
 export default class PathView extends Component {
@@ -21,11 +22,11 @@ export default class PathView extends Component {
       ([x, y]) => [1 - y, x]];
 
     const CONN = [
-      [[0, 1], [1, 0], [0, 1], [1, 3], [3, 3]], 
-      [[1, 2], [0, 0], [1, 3], [0, 0], [3, 2]],
-      [[0, 1], [1, 1], [0, 1], [1, 2], [3, 1]], 
-      [[1, 1], [0, 0], [1, 0], [0, 0], [3, 0]],
-      [[2, 1], [2, 0], [2, 3], [2, 2], [0, 0]]];
+      [[0, 0], [1, 1], [0, 0], [1, 0], [3, 0]], 
+      [[1, 3], [0, 1], [1, 0], [0, 1], [3, 3]],
+      [[0, 0], [1, 2], [0, 0], [1, 3], [3, 2]], 
+      [[1, 2], [0, 1], [1, 1], [0, 1], [3, 1]],
+      [[2, 2], [2, 1], [2, 0], [2, 3], [0, 0]]];
     
     const CORNERS = [[0, 0], [1, 0], [1, 1], [0, 1]];
     const level = this.props.level;
@@ -59,7 +60,7 @@ export default class PathView extends Component {
         x = (x + frame)*FRAME_UV_WIDTH;
         uv.push(new Vector2(x, y));
       }
-      const idx = (h - posy - 1) + level.width*(w - posx - 1);
+      const idx = posx + w*(h - posy - 1);
 
       uvs[idx*2    ] = [uv[3], uv[2], uv[0]];
       uvs[idx*2 + 1] = [uv[2], uv[1], uv[0]];      
@@ -68,15 +69,15 @@ export default class PathView extends Component {
   }
 
   render() {
-    const level = this.props.level;
-    const path = Board.textToPath(level.solution);
-
-    let uvs = [this.makeUVs(path)];
-    const {width, height} = level;
+    const {width, height, solution} = this.props.level;
+    const path = Board.textToPath(solution);
+    const x = width*CELL_SIDE*0.5;
+    const y = height*CELL_SIDE*0.5;
+    const uvs = [this.makeUVs(path)];
     
     return (
       <mesh
-        position={new Vector3(0, 0.1, 0)}
+        position={new Vector3(x, 0.1, y)}
         rotation={new Euler(Math.PI/2, 0, 0, 'XYZ')}
         receiveShadow>
         <planeGeometry

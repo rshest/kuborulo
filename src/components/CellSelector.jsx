@@ -11,8 +11,9 @@ export default class CellSelector extends Component {
   }
 
   render() {
-    let x = CELL_SIDE*this.props.cellX;
-    let y = CELL_SIDE*this.props.cellY;
+    const hs = CELL_SIDE*0.5; 
+    const x = CELL_SIDE*this.props.cellX + hs;
+    const y = CELL_SIDE*this.props.cellY + hs;
 
     return (
       <mesh

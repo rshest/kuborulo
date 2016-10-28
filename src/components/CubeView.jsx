@@ -14,7 +14,6 @@ export default class CubeView extends Component {
     const path = Board.textToPath(level.solution);
     
     //  ---- cut
-    
     let step = 0;
     let t = 0;
     let animate = () => {
@@ -62,7 +61,7 @@ export default class CubeView extends Component {
   }
 
   getRotationTransform(dir, t = 0) {
-    const XZ_AXIS = [[1,  0], [0, 1], [-1, 0], [0, -1]];
+    const XZ_AXIS = [[0, -1], [1,  0], [0, 1], [-1, 0]];
     const [ax, az] = XZ_AXIS[dir];
     const angle = Math.PI*0.5*t;
     const axis = new Vector3(ax, 0, az);
@@ -79,15 +78,12 @@ export default class CubeView extends Component {
   }
 
   getTransform(cellX, cellY, dir = 0, face = 0, t = 0) {
-    const XZ_DIR  = [[0, -1], [1, 0], [ 0, 1], [-1, 0]];
+    const XZ_DIR  = [[-1, 0], [0, -1], [ 1, 0], [0, 1]];
     const [dx, dz] = XZ_DIR[dir];
 
-    const level = this.state.level;
-    const w = level.width*CELL_SIDE;
-    const h = level.height*CELL_SIDE;
     const hs = CELL_SIDE*0.5;
-    const x = h*0.5 - cellY*CELL_SIDE - hs;
-    const y = cellX*CELL_SIDE - w*0.5 + hs;
+    const x = cellX*CELL_SIDE + hs;
+    const y = cellY*CELL_SIDE + hs;
 
     const shift = [dx*hs, hs, dz*hs];
     const unshift = [x - dx*hs, 0, y - dz*hs];

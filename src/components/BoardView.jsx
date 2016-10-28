@@ -12,10 +12,11 @@ export default class BoardView extends Component {
   }
 
   box(x, y) {
-    const {width, height} = this.props.level;
+    const {width} = this.props.level;
     const key = x + y*width;
-    const px = x*CELL_SIDE - (width  - 1)*CELL_SIDE*0.5;
-    const py = y*CELL_SIDE - (height - 1)*CELL_SIDE*0.5;
+    const hs = CELL_SIDE*0.5;
+    const px = x*CELL_SIDE + hs;
+    const py = y*CELL_SIDE + hs;
     const color = (x + y)%2 == 1 ? FACE_COLOR_ODD : FACE_COLOR_EVEN;
     return (
       <mesh
@@ -42,8 +43,6 @@ export default class BoardView extends Component {
 
   render() {
     const {width, height} = this.props.level;
-    console.log(width);
-
     var boxes = [];
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < height; j++) {
