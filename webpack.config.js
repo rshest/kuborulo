@@ -1,15 +1,18 @@
-var path = require('path');
-var webpack = require('webpack');
- 
 module.exports = {
-  entry: ['babel-polyfill', './src/App.js'],
-  output: { path: __dirname, filename: 'dist/bundle.js' },
+  entry: ['babel-polyfill', './src/main.js'],
+  output: { 
+    path: __dirname, 
+    filename: 'dist/bundle.js' 
+  },
   cache: true,
   debug: true,
   devtool: 'source-map',
   stats: {
     colors: true,
     reasons: true
+  },
+  devServer: {
+    inline: true
   },
   module: {
     loaders: [

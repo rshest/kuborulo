@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import THREE, {Vector3} from 'three';
 
-const CELL_SIDE = 20;
-const BOARD_HEIGHT = 20;
-const FACE_COLOR_ODD = 0xAAAA77;
-const FACE_COLOR_EVEN = 0xFFFFAA;
+import {CELL_SIDE, FACE_COLOR_ODD, 
+  FACE_COLOR_EVEN, BOARD_HEIGHT} from '../constants';
+
 
 export default class BoardView extends Component {
   constructor(props, context) {

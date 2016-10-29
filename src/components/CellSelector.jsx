@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import THREE, {Vector3, Euler} from 'three';
 
-const CELL_SIDE = 20;
-const SEL_COLOR = 0x33FF33;
-const SEL_OPACITY = 0.3; 
+import {CELL_SIDE, SEL_COLOR, SEL_OPACITY} from '../constants';
 
 export default class CellSelector extends Component {
   constructor(props, context) {

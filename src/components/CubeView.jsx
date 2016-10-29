@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import THREE, {Euler, Quaternion, Vector3, Matrix4} from 'three';
 import {Board, MOVE_OFFSETS, FACE_MOVEMENT} from '../model/Board';
 
-const CELL_SIDE = 20;
-const CUBE_COLOR = 0xFFFFFF;
-const TOP_FACE_COLOR = 0x669988;
+import {CELL_SIDE, CUBE_COLOR, TOP_FACE_COLOR} from '../constants';
     
 export default class CubeView extends Component {
   constructor(props, context) {

@@ -11,31 +11,21 @@ import CubeView from './CubeView.jsx';
 import CellSelector from './CellSelector.jsx';
 import BoardView from './BoardView.jsx';
 
-const WIDTH = 640;
-const HEIGHT = 480;
-const CELL_SIDE = 20;
-
-const BACKGROUND_COLOR = 0xeeeecc;
-const AMBIENT_COLOR = 0x555555;
-const LIGHT_COLOR = 0xffffff;
-const LIGHT_OFFSET = new Vector3(-120, 200, 100);
-const LOOKAT_HEIGHT = 15;
-
-const CAMERA_FOV = 50;
-
+import {CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
+  LIGHT_OFFSET, BACKGROUND_COLOR, CAMERA_FOV,
+  AMBIENT_COLOR, LIGHT_COLOR} from '../constants';
 
 export default class PuzzleView extends Component {
   constructor(props, context) {
     super(props, context);
 
-    console.log(levels); 
     let level = levels[2];
     if (level.solution === undefined) {
       let board = new Board(level);
       let sol = board.solve();
       level.solution = Board.pathToText(sol.result);
       console.log(level.solution);
-    }
+    } 
 
     const {width, height} = level;
     const camDist = (Math.max(width, height) + 1)*CELL_SIDE*1.2;
@@ -78,8 +68,8 @@ export default class PuzzleView extends Component {
         sx += dx;
         sy += dy;
       } else {
-        mouse.x =  (e.clientX/WIDTH )*2 - 1;
-        mouse.y = -(e.clientY/HEIGHT)*2 + 1;
+        mouse.x =  (e.clientX/VIEW_WIDTH )*2 - 1;
+        mouse.y = -(e.clientY/VIEW_HEIGHT)*2 + 1;
         raycaster.setFromCamera(mouse, this.camera);
         if (raycaster.ray.intersectPlane(plane, intersection)) {
           const selectX = Math.floor(intersection.x/CELL_SIDE);
@@ -121,8 +111,8 @@ export default class PuzzleView extends Component {
     
     return (
       <React3
-        width={WIDTH}
-        height={HEIGHT}
+        width={VIEW_WIDTH}
+        height={VIEW_HEIGHT}
         antialias
         pixelRatio={window.devicePixelRatio}
         mainCamera="mainCamera"

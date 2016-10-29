@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import THREE, {Vector3, Vector2, Euler} from 'three';
 import {Board, MOVE_OFFSETS} from '../model/Board';
 
-const CELL_SIDE = 20;
-
-const FRAME_UV_WIDTH = 0.25;
-const PATH_COLOR = 0x779988;
-const PATH_OPACITY = 0.7;
+import {CELL_SIDE, FRAME_UV_WIDTH, 
+  PATH_COLOR, PATH_OPACITY} from '../constants';
 
 export default class PathView extends Component {
   constructor(props, context) {
