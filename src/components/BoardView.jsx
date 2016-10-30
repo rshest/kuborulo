@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import THREE, {Vector3} from 'three';
 
 import {CELL_SIDE, FACE_COLOR_ODD, 
   FACE_COLOR_EVEN, BOARD_HEIGHT} from '../constants';
 
 
-export default class BoardView extends Component {
+export default class BoardView extends PureComponent {
   constructor(props, context) {
     super(props, context);
   }

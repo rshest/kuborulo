@@ -25,3 +25,5 @@ export const LIGHT_OFFSET     = new Vector3(-120, 200, 100);
 
 export const LOOKAT_HEIGHT    = 15;
 export const CAMERA_FOV       = 50;
+
+export const CUBE_ROLL_DURATION = 200;

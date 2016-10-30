@@ -1,55 +1,53 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Rx from 'rxjs';
 import THREE, {Euler, Quaternion, Vector3, Matrix4} from 'three';
 import {Board} from '../model/Board';
 
-import {CELL_SIDE, CUBE_COLOR, TOP_FACE_COLOR} from '../constants';
+import {CELL_SIDE, CUBE_COLOR, TOP_FACE_COLOR, CUBE_ROLL_DURATION} from '../constants';
     
-export default class CubeView extends Component {
+export default class CubeView extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    const level = props.level;
-    const {x, y} = level.start;
-    const face = level.start.faces !== undefined ? level.start.faces[0] : 0;
     this.state = {
-      x, y, face,
-      moveDir: 0,
-      movePhase: 0,
-      level: level
+      x: props.cubeX, 
+      y: props.cubeY, 
+      face: props.cubeFace,
+      moveDir: 0, movePhase: 0
     };
-
-    this.pathAnim({x, y, face}, Board.textToPath(level.solution));
   }
 
-  animateRoll(x, y, face, moveDir, duration) {
-    const PERIOD = 100;
-    const dPhase = duration*1000/PERIOD;
-
-    const source = Rx.Observable.timer(0, PERIOD)
-      .timeInterval()
-      .take(Math.ceil(duration/PERIOD));
+  componentWillUpdate(nextProps) { 
+    const {cubeX, cubeY} = this.props;
+    const nx = nextProps.cubeX;
+    const ny = nextProps.cubeY;
+    const nface = nextProps.cubeFace;
     
-    let movePhase = 0;
-    let animate = () => {
-      movePhase +=dPhase;
-      if (movePhase > 1.0) {
-        this.setState({movePhase: 1});
-        return;
+    if (nx != cubeX || ny != cubeY) {
+      const dir = Board.getDir(nx - cubeX, ny - cubeY);
+      if (dir !== undefined) {
+        this.animateRoll(nx, ny, nface, dir, CUBE_ROLL_DURATION);
       }
-      setTimeout(animate, PERIOD);  
-      this.setState({x, y, face, moveDir, movePhase});  
-    };
-    setTimeout(animate, PERIOD);
+    } 
   }
 
-  pathAnim(pos, path) {
-    Rx.Observable.from(path)
-      .scan(Board.move, pos)
-      .zip(Rx.Observable.interval(1000).timeInterval(),
-           Rx.Observable.from(path))
-      .subscribe(([{x, y, face}, {interval}, dir]) => 
-        this.animateRoll(x, y, face, +dir, interval));
+  animateRoll(x, y, face, dir, duration) {
+    const revDir = Board.reverseDir(dir);
+    const PERIOD = 10;
+    const steps = Math.ceil(duration/PERIOD);
+
+    this.setState({x, y, face, movePhase: 1, moveDir: revDir - 1});
+
+    Rx.Observable.interval(PERIOD)
+      .take(steps)
+      .subscribe(i => { 
+        const movePhase = 1 - i*PERIOD/duration;
+        const newState = {x, y, face, 
+          moveDir: revDir - 1, movePhase};
+        this.setState(newState);
+      }, 
+      null, 
+      () => this.setState({x, y, face, movePhase: 0}));
   }
 
   getRotationTransform(dir, t = 0) {
@@ -90,7 +88,7 @@ export default class CubeView extends Component {
 
   render() {
     const {x, y, moveDir, face, movePhase} = this.state;
-    const trans = this.getTransform(x, y, face, moveDir,movePhase);
+    const trans = this.getTransform(x, y, face, moveDir, movePhase);
     const pos = new Vector3();
     const rot = new Quaternion();
     const scale = new Vector3();

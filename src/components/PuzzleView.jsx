@@ -1,30 +1,34 @@
 import THREE, {Vector3, Vector2, Plane} from 'three';
 import React, {Component} from 'react';
+import Rx from 'rxjs';
 import React3 from 'react-three-renderer';
+
 import {Board} from '../model/Board';
-
-import levels from '../../data/levels.json';
-
 
 import PathView from './PathView.jsx';
 import CubeView from './CubeView.jsx';
 import CellSelector from './CellSelector.jsx';
 import BoardView from './BoardView.jsx';
 
+import levels from '../../data/levels.json';
+
 import {CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
   LIGHT_OFFSET, BACKGROUND_COLOR, CAMERA_FOV,
-  AMBIENT_COLOR, LIGHT_COLOR} from '../constants';
+  AMBIENT_COLOR, LIGHT_COLOR, CUBE_ROLL_DURATION} from '../constants';
 
 export default class PuzzleView extends Component {
   constructor(props, context) {
     super(props, context);
 
-    let level = levels[2];
+    let level = levels[props.levelIndex];
     if (level.solution === undefined) {
       let board = new Board(level);
       let sol = board.solve();
       level.solution = Board.pathToText(sol.result);
     } 
+
+    const {x, y} = level.start;
+    const face = level.start.faces !== undefined ? level.start.faces[0] : 0;
 
     const {width, height} = level;
     const camDist = (Math.max(width, height) + 1)*CELL_SIDE*1.2;
@@ -36,7 +40,11 @@ export default class PuzzleView extends Component {
 
       level: level,
       selectX: 0,
-      selectY: 0
+      selectY: 0,
+      cubeX: x,
+      cubeY: y,
+      cubeFace: face,
+      path: []
     };
 
     let down = false;
@@ -45,6 +53,13 @@ export default class PuzzleView extends Component {
       down = true; 
       sx = e.clientX; 
       sy = e.clientY;
+      const {cubeX, cubeY, cubeFace, selectX, selectY, path} = this.state;
+      const dir = Board.getDir(selectX - cubeX, selectY - cubeY);
+      if (dir !== undefined) {
+        const {face} = Board.move({x: cubeX, y: cubeY, face: cubeFace}, dir);
+        this.setState({cubeX: selectX, cubeY: selectY, 
+          cubeFace: face, path: [...path, dir]});
+      }
     };
     window.onmouseup = () => down = false;
 
@@ -100,11 +115,32 @@ export default class PuzzleView extends Component {
     return pos;        
   }
 
-  onAnimate() {
+  componentDidMount() {
+    const {level} = this.state;
+    const {x, y} = level.start;
+    const face = level.start.faces !== undefined ? level.start.faces[0] : 0;
+    this.pathAnim({x, y, face}, Board.textToPath(level.solution));
+  }
+
+  pathAnim(pos, path) {
+    Rx.Observable.from(path)
+      .scan(Board.move, pos)
+      .zip(Rx.Observable.from(path),
+           Rx.Observable.interval(CUBE_ROLL_DURATION).timeInterval())
+      .subscribe(([pos, dir]) => { 
+        const newPath = [...this.state.path, +dir];
+        this.setState({
+          cubeX: pos.x,
+          cubeY: pos.y,
+          cubeFace: pos.face,
+          path: newPath});
+      });
   }
 
   render() {
-    const {level, selectX, selectY} = this.state;
+    const {level, selectX, selectY, 
+      cubeX, cubeY, cubeFace,
+      path} = this.state;
     const lookAt = this.getCameraLookAt();
     const lightPos = lookAt.clone().add(LIGHT_OFFSET);
     
@@ -142,7 +178,7 @@ export default class PuzzleView extends Component {
             shadowCameraNear={100}
             shadowCameraFar={500}
             shadowCameraLeft={-150}
-            shadowCameraBottom={-150}
+            shadowCameraBottom={-150} 
             shadowCameraRight={150}
             shadowCameraTop={150}
             shadowBias={0.002}
@@ -151,12 +187,22 @@ export default class PuzzleView extends Component {
           />
           
           <BoardView level={level}/>
-          <PathView level={level}/>
+          <PathView 
+            path={path}
+            cellsX={level.width}
+            cellsY={level.height}
+            startX={level.start.x}
+            startY={level.start.y}
+          />
           <CellSelector 
             level={level} 
             cellX={selectX} 
             cellY={selectY}/>
-          <CubeView level={level}/>
+          <CubeView 
+            cubeX={cubeX}
+            cubeY={cubeY}
+            cubeFace={cubeFace}
+            />
         </scene>
       </React3>
     );

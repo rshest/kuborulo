@@ -32,6 +32,7 @@ const FACE_MOVEMENT = [
 const MOVE_OFFSETS  = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 const MOVE_DIRS     = [FACE.RIGHT, FACE.DOWN, FACE.LEFT, FACE.UP];
 const MOVE_TO_LABEL = {0:'', 1:'E', 2:'S', 3: 'W', 4: 'N'};
+const MOVE_REVERSE  = [FACE.LEFT, FACE.UP, FACE.RIGHT, FACE.DOWN];
 const LABEL_TO_MOVE = {'':0, 'E':1, 'S':2, 'W':3, 'N':4};
 
 const MOVE_RESULT = {
@@ -57,7 +58,7 @@ class Board {
     return path.map(d => MOVE_TO_LABEL[d]).join('');
   }
   static textToPath(text) {
-    return text.split('').map(d => LABEL_TO_MOVE[d]).join('');
+    return text.split('').map(d => LABEL_TO_MOVE[d]);
   }
 
   static orientPath(face) {
@@ -74,6 +75,15 @@ class Board {
       y: y + dy,
       face: FACE_MOVEMENT[dir - 1][face] 
     };
+  }
+
+  static reverseDir(dir) {
+    return MOVE_REVERSE[dir - 1];
+  }
+
+  static getDir(dx, dy) {
+    const dir = MOVE_OFFSETS.findIndex(([cx, cy]) => cx == dx && cy == dy);
+    return dir >= 0 ? dir + 1 : undefined;
   }
 
   constructor(config) {

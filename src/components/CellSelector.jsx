@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import THREE, {Vector3, Euler} from 'three';
 
 import {CELL_SIDE, SEL_COLOR, SEL_OPACITY} from '../constants';
 
-export default class CellSelector extends Component {
+export default class CellSelector extends PureComponent {
   constructor(props, context) {
     super(props, context);
   }
