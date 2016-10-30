@@ -67,6 +67,15 @@ class Board {
     return FACE_PATH[face];
   }
 
+  static move({x, y, face}, dir) {
+    const [dx, dy] = MOVE_OFFSETS[dir - 1];
+    return {
+      x: x + dx,
+      y: y + dy,
+      face: FACE_MOVEMENT[dir - 1][face] 
+    };
+  }
+
   constructor(config) {
     this.config = config;
     this.state = makeState(config);

@@ -7,10 +7,31 @@
 },
 {
   "width":  4,
+  "height": 2,
+  "start":  {"x": 2, "y": 1, "faces": [1]},
+  "target": {"x": 0, "y": 0, "faces": [-1]},
+  "solution": "ENWWSWN"
+},
+{
+  "width":  4,
   "height": 4,
   "start":  {"x": 0, "y": 0, "faces": [1]},
   "target": {"x": 0, "y": 0},
   "solution": "ESENESSSWNWSWNNN"
+},
+{
+  "width":  5,
+  "height": 3,
+  "start":  {"x": 1, "y": 1, "faces": [5]},
+  "target": {"x": 4, "y": 2, "faces": [-1]},
+  "solution": "SWNNEESSENNESS"
+},
+{
+  "width":  5,
+  "height": 4,
+  "start":  {"x": 0, "y": 3, "faces": [0]},
+  "target": {"x": 4, "y": 0, "faces": [-1]},
+  "solution": "NNNEESWSSENESENNWNE"
 },
 {
   "width":  5,
@@ -25,6 +46,76 @@
   "start":  {"x": 1, "y": 3, "faces": [4]},
   "target": {"x": 0, "y": 3},
   "solution": "EEEENWNENWWSSWWNENWWSSS"
+},
+{
+  "width":  6,
+  "height": 5,
+  "start":  {"x": 5, "y": 4, "faces": [0]},
+  "target": {"x": 2, "y": 4, "faces": [0]},
+  "solution": "NNWNENWWSSWWNENWWSSSSENEEESWW"
+},
+{
+  "width":  8,
+  "height": 3,
+  "start":  {"x": 0, "y": 0, "faces": [2]},
+  "target": {"x": 7, "y": 0, "faces": [-1]},
+  "solution": "SSENNESSENNESSENNESSENN"
+},
+{
+  "width":  6,
+  "height": 6,
+  "start":  {"x": 0, "y": 0, "faces": [2]},
+  "target": {"x": 0, "y": 0, "faces": [-1]},
+  "solution": "EEEEESSWNWSSSENESSWWWWWNNESENNNWSWNN"
+},
+{
+  "width":  7,
+  "height": 4,
+  "start":  {"x": 3, "y": 2, "faces": [4]},
+  "target": {"x": 3, "y": 2, "faces": [-1]},
+  "solution": "ENNEESWSESWWWWWWNENWNEEESWSE"
+},
+{
+  "width":  8,
+  "height": 4,
+  "start":  {"x": 0, "y": 0, "faces": [2]},
+  "target": {"x": 0, "y": 0, "faces": [-1]},
+  "solution": "EEEEEEESWSESWWNNWSSWNNWSSWWNENWN"
+},
+{
+  "width":  8,
+  "height": 4,
+  "start":  {"x": 5, "y": 0, "faces": [2]},
+  "target": {"x": 2, "y": 0, "faces": [-1]},
+  "solution": "EESWSESWWWNENWNWSWSESWWWNENWNEE"
+},
+{
+  "width":  7,
+  "height": 6,
+  "start":  {"x": 6, "y": 1, "faces": [5]},
+  "target": {"x": 6, "y": 1, "faces": [-1]},
+  "solution": "SWNWSSSENESSWWWNNWWSESWWNNNNNEESWSEENNEEES"
+},
+{
+  "width":  8,
+  "height": 5,
+  "start":  {"x": 2, "y": 4, "faces": [1]},
+  "target": {"x": 5, "y": 4, "faces": [-1]},
+  "solution": "ENWWSWNNNNEESWSEENNESSEENWNEESSSSWNWWSE"
+},
+{
+  "width":  7,
+  "height": 7,
+  "start":  {"x": 6, "y": 6, "faces": [4]},
+  "target": {"x": 0, "y": 0, "faces": [-1]},
+  "solution": "WWWWWWNENWNEESSENNEESWSEENNNNNWWSESWWNNWSSWWNENW"
+},
+{
+  "width":  8,
+  "height": 6,
+  "start":  {"x": 0, "y": 2, "faces": [0]},
+  "target": {"x": 0, "y": 1, "faces": [-1]},
+  "solution": "SSSENNESSENNESSEEENNWSWNNNESENNWWWSSWNNWSSWNNWS"
 },
 {
   "width":  8,

@@ -1,3 +1,5 @@
 {
-  "jshint.enable" : false
+  "jshint.enable" : false,
+  "javascript.validate.enable": false
+
 }

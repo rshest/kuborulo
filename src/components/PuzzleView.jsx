@@ -24,7 +24,6 @@ export default class PuzzleView extends Component {
       let board = new Board(level);
       let sol = board.solve();
       level.solution = Board.pathToText(sol.result);
-      console.log(level.solution);
     } 
 
     const {width, height} = level;
