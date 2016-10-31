@@ -50,15 +50,26 @@ export default class PuzzleView extends Component {
     let down = false;
     let sx = 0, sy = 0;
     window.onmousedown = (e) => {
-      down = true; 
-      sx = e.clientX; 
-      sy = e.clientY;
       const {cubeX, cubeY, cubeFace, selectX, selectY, path} = this.state;
+      const pathPtIdx = Board.findPointOnPath(selectX, selectY, x, y, face, path);
       const dir = Board.getDir(selectX - cubeX, selectY - cubeY);
-      if (dir !== undefined) {
-        const {face} = Board.move({x: cubeX, y: cubeY, face: cubeFace}, dir);
+      const pos = {x: cubeX, y: cubeY, face: cubeFace};
+      console.log(pathPtIdx);
+
+      if (pathPtIdx >= 0) {
+        // undo part of the path
+        const unpath = path.slice(pathPtIdx).map(Board.reverseDir).reverse();
+        this.pathAnim(pos, unpath, true);
+      } else if (dir !== undefined) {
+        //  move cube
+        const {face} = Board.move(pos, dir);
         this.setState({cubeX: selectX, cubeY: selectY, 
           cubeFace: face, path: [...path, dir]});
+      } else {
+        //  move camera
+        down = true; 
+        sx = e.clientX; 
+        sy = e.clientY;
       }
     };
     window.onmouseup = () => down = false;
@@ -122,13 +133,14 @@ export default class PuzzleView extends Component {
     this.pathAnim({x, y, face}, Board.textToPath(level.solution));
   }
 
-  pathAnim(pos, path) {
+  pathAnim(pos, path, undo = false) {
     Rx.Observable.from(path)
       .scan(Board.move, pos)
       .zip(Rx.Observable.from(path),
            Rx.Observable.interval(CUBE_ROLL_DURATION).timeInterval())
-      .subscribe(([pos, dir]) => { 
-        const newPath = [...this.state.path, +dir];
+      .subscribe(([pos, dir]) => {
+        const curPath = this.state.path;
+        const newPath = undo ? curPath.slice(0, -1) : [...curPath, +dir];
         this.setState({
           cubeX: pos.x,
           cubeY: pos.y,

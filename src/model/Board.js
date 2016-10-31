@@ -86,6 +86,17 @@ class Board {
     return dir >= 0 ? dir + 1 : undefined;
   }
 
+  static findPointOnPath(x, y, startX, startY, startFace, path) {
+    let pos = {x: startX, y: startY, face: startFace};
+    for (let i = 0; i < path.length; i++) {
+      if (pos.x === x && pos.y === y) {
+        return i;
+      }
+      pos = Board.move(pos, path[i]);
+    }
+    return -1;
+  }
+
   constructor(config) {
     this.config = config;
     this.state = makeState(config);
