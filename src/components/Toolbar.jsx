@@ -4,7 +4,7 @@ export default class Toolbar extends PureComponent {
   render() {    
     return (
       <div>
-        <span>Kuborulo!</span>
+        <button className="toolbar-button" onClick={this.props.onSolve}>Solve</button>
       </div>
     );
   }
