@@ -134,7 +134,10 @@ export default class PuzzleView extends PureComponent {
   }
 
   pathAnim(startPos, path, undo = false) {
-    Rx.Observable.from(path)
+    if (this.pathAnim$ !== undefined) {
+      this.pathAnim$.unsubscribe();
+    }
+    this.pathAnim$ = Rx.Observable.from(path)
       .scan(Board.move, startPos)
       .zip(Rx.Observable.from(path),
            Rx.Observable.interval(CUBE_ROLL_DURATION).timeInterval())
