@@ -16,3 +16,7 @@ body {
 .outer {
   position: relative;
 }
+
+.toolbar-button {
+  margin: 5px;
+}
