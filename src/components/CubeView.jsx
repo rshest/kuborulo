@@ -39,7 +39,7 @@ export default class CubeView extends PureComponent {
     this.setState({x, y, face, movePhase: 1, moveDir: revDir - 1});
 
     if (this.roll$ !== undefined) {
-      this.roll$.cancel();
+      this.roll$.unsubscribe();
     }
 
     this.roll$ = Rx.Observable
