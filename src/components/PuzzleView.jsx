@@ -54,7 +54,6 @@ export default class PuzzleView extends Component {
       const pathPtIdx = Board.findPointOnPath(selectX, selectY, x, y, face, path);
       const dir = Board.getDir(selectX - cubeX, selectY - cubeY);
       const pos = {x: cubeX, y: cubeY, face: cubeFace};
-      console.log(pathPtIdx);
 
       if (pathPtIdx >= 0) {
         // undo part of the path

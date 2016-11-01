@@ -1,5 +1,3 @@
-'use strict';
-
 import {Board, FACE, MOVE_RESULT} from '../src/Board';
 
 describe('Board', () => {
