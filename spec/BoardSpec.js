@@ -1,4 +1,4 @@
-import {Board, FACE, MOVE_RESULT} from '../src/Board';
+import {Board, FACE, MOVE_RESULT} from '../src/model/Board';
 
 describe('Board', () => {
   let board;
@@ -152,7 +152,7 @@ describe('Board', () => {
     expect(Board.pathToText(sol[sol.length - 1].result))
       .toEqual('EEESWSWNWSSSSSSENESENNWWNNESENNESSENESSWWSSENESENNNNNNWSWNWNEEE');    
   });
-  */
+  */  
 
 
 });

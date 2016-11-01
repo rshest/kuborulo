@@ -38,7 +38,12 @@ export default class CubeView extends PureComponent {
 
     this.setState({x, y, face, movePhase: 1, moveDir: revDir - 1});
 
-    Rx.Observable.interval(PERIOD, Rx.Scheduler.requestAnimationFrame)
+    if (this.roll$ !== undefined) {
+      this.roll$.cancel();
+    }
+
+    this.roll$ = Rx.Observable
+      .interval(PERIOD, Rx.Scheduler.requestAnimationFrame)
       .take(steps)
       .subscribe(i => { 
         const movePhase = 1 - i*PERIOD/duration;
