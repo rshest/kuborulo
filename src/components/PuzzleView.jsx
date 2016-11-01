@@ -1,4 +1,5 @@
 import THREE, {Vector3, Vector2, Plane} from 'three';
+import React, {PureComponent} from 'react';
 import Rx from 'rxjs';
 import React3 from 'react-three-renderer';
 
@@ -15,6 +16,7 @@ import {CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
   LIGHT_OFFSET, BACKGROUND_COLOR, CAMERA_FOV,
   AMBIENT_COLOR, LIGHT_COLOR, CUBE_ROLL_DURATION} from '../constants';
 
+export default class PuzzleView extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
@@ -127,13 +129,11 @@ import {CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
     const {level} = this.state;
     const {x, y} = level.start;
     const face = level.start.faces !== undefined ? level.start.faces[0] : 0;
+    this.setState({cubeX: x, cubeY: y, cubeFace: face, path: []});
     this.pathAnim({x, y, face}, Board.textToPath(level.solution));
   }
 
   pathAnim(startPos, path, undo = false) {
-    const {x, y, face} = startPos;
-    this.setState({cubeX: x, cubeY: y, cubeFace: face, path: []});
-    
     Rx.Observable.from(path)
       .scan(Board.move, startPos)
       .zip(Rx.Observable.from(path),
@@ -142,10 +142,10 @@ import {CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
         const curPath = this.state.path;
         const newPath = undo ? curPath.slice(0, -1) : [...curPath, +dir];
         this.setState({
-          cubeX: pos.x,
-          cubeY: pos.y,
+          cubeX:    pos.x,
+          cubeY:    pos.y,
           cubeFace: pos.face,
-          path: newPath});
+          path:     newPath});
       });
   }
 
