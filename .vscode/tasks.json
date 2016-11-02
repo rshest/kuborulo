@@ -1,18 +1,29 @@
 
 {
 	"version": "0.1.0",
-	"command": "${workspaceRoot}/node_modules/.bin/webpack-dev-server",
+	"command": "npm",
 	"isShellCommand": true,
-	"args": [
-		"--progress",
-    "--colors"
-	],
 	"echoCommand": true,
 	"tasks": [
 		{
 			"suppressTaskName": true,
-			"taskName": "webpack srv",
-			"isBuildCommand": true
+			"taskName": "start",
+      "showOutput": "always",
+			"isBuildCommand": true,
+      "isTestCommand": false,
+      "args": [
+		    "start"
+    	]
+		},
+    {
+			"suppressTaskName": true,
+			"taskName": "test",
+      "showOutput": "always",
+      "isBuildCommand": false,
+			"isTestCommand": true,
+      "args": [
+		    "test"
+    	]      
 		}
 	]
 }

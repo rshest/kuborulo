@@ -5,17 +5,20 @@
   "author": "Ruslan Shestopalyuk",
   "license": "ISC",
   "main": "index.js",
+
   "scripts": {
-    "test": "webpack --config ./webpack.config.test.js",
-    "start": "webpack-dev-server --hot --progress --colors",
-    "build": "webpack --progress --colors"
+    "start": "webpack-dev-server --colors --progress --hot",
+    "build": "webpack --colors --progress",
+    "test": "webpack-dev-server --colors --progress --hot --content-base spec --config webpack.config.test.js --port 8088"
   },
+  
   "keywords": [
     "game",
     "puzzle",
     "cubes",
     "3d"
   ],
+  
   "devDependencies": {
     "@types/react": "^0.14.43",
     "@types/react-dom": "^0.14.18",
@@ -32,9 +35,11 @@
     "eslint-plugin-react": "^6.4.1",
     "jasmine": "^2.5.2",
     "json-loader": "^0.5.4",
+    "redux-router": "^2.1.2",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
+  
   "dependencies": {
     "react": "^15.3.1",
     "react-dom": "^15.3.1",

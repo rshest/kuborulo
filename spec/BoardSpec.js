@@ -91,7 +91,7 @@ describe('Board', () => {
     };
 
     let board0 = new Board(conf0);
-    let sol = board0.solve().next().value;
+    let sol = board0.solve();
     expect(sol.type).toEqual('solution');
     expect(sol.result).toEqual([1, 2, 3]);  
   });
@@ -105,7 +105,7 @@ describe('Board', () => {
     };
 
     let board0 = new Board(conf0);
-    let sol = board0.solve().next().value;
+    let sol = board0.solve();
     expect(sol.type).toEqual('solution');
     expect(sol.result).toEqual([1, 1, 2, 3, 3, 4]);  
   });
@@ -120,7 +120,7 @@ describe('Board', () => {
     };
 
     let board0 = new Board(conf0);
-    let sol = board0.solve().next().value;
+    let sol = board0.solve();
     expect(sol.type).toEqual('solution');
     expect(sol.result).toEqual([1, 1, 1, 2, 3, 3, 3]);  
   });
@@ -134,11 +134,9 @@ describe('Board', () => {
     };
 
     let board0 = new Board(conf0);
-    let sol = Array.from(board0.solve()).filter(s => s.type == 'solution');
-    expect(Board.pathToText(sol[sol.length - 1].result)).toEqual('ESENESSSWNWSWNNN');    
+    expect(Board.pathToText(board0.solve().result)).toEqual('ESENESSSWNWSWNNN');    
   });
 
-  /*
   it('should solve a 8x8 board', () => { 
     const conf0 = {
       width:  8,
@@ -148,11 +146,10 @@ describe('Board', () => {
     };
 
     let board0 = new Board(conf0);
-    let sol = Array.from(board0.solve()).filter(s => s.type == 'solution');
-    expect(Board.pathToText(sol[sol.length - 1].result))
+    let sol = board0.solve().result;
+    expect(Board.pathToText(sol))
       .toEqual('EEESWSWNWSSSSSSENESENNWWNNESENNESSENESSWWSSENESENNNNNNWSWNWNEEE');    
   });
-  */  
 
 
 });

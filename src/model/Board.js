@@ -35,7 +35,7 @@ const MOVE_TO_LABEL = {0:'', 1:'E', 2:'S', 3: 'W', 4: 'N'};
 const MOVE_REVERSE  = [FACE.LEFT, FACE.UP, FACE.RIGHT, FACE.DOWN];
 const LABEL_TO_MOVE = {'':0, 'E':1, 'S':2, 'W':3, 'N':4};
 
-const MOVE_RESULT = {
+export const MOVE_RESULT = {
   TARGET      : 0,  //  the move lands at target
   SUCCESS     : 1,  //  can move successfully
   OUTSIDE     : 2,  //  move is outside of the board
@@ -274,4 +274,4 @@ class Board {
 }
 
 
-export { FACE, MOVE_OFFSETS, FACE_MOVEMENT, Board };
+export { FACE, MOVE_OFFSETS, Board };
