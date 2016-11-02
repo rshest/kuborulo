@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 
 export default class Toolbar extends PureComponent {
-  render() {    
+  render() {
     return (
       <div>
         <button className="toolbar-button" onClick={this.props.onSolve}>Solve</button>
@@ -9,4 +9,3 @@ export default class Toolbar extends PureComponent {
     );
   }
 }
- 

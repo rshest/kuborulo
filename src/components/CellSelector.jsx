@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
-import THREE, {Vector3, Euler} from 'three';
+import React, { PureComponent } from 'react';
+import THREE, { Vector3, Euler } from 'three';
 
-import {CELL_SIDE, SEL_COLOR, SEL_OPACITY} from '../constants';
+import { CELL_SIDE, SEL_COLOR, SEL_OPACITY } from '../constants';
 
 export default class CellSelector extends PureComponent {
   constructor(props, context) {
@@ -9,20 +9,20 @@ export default class CellSelector extends PureComponent {
   }
 
   render() {
-    const hs = CELL_SIDE*0.5; 
-    const x = CELL_SIDE*this.props.cellX + hs;
-    const y = CELL_SIDE*this.props.cellY + hs;
+    const hs = CELL_SIDE * 0.5;
+    const x = CELL_SIDE * this.props.cellX + hs;
+    const y = CELL_SIDE * this.props.cellY + hs;
 
     return (
       <mesh
         position={new Vector3(x, 0.2, y)}
-        rotation={new Euler(Math.PI/2, 0, 0, 'XYZ')}>
+        rotation={new Euler(Math.PI / 2, 0, 0, 'XYZ')}>
         <planeGeometry
           width={CELL_SIDE}
           height={CELL_SIDE}
           widthSegments={1}
           heightSegments={1}
-          dynamic/>
+          dynamic />
         <meshBasicMaterial
           side={THREE.DoubleSide}
           transparent
@@ -31,7 +31,7 @@ export default class CellSelector extends PureComponent {
           <texture
             url="img/selection.png"
             wrapS={THREE.RepeatWrapping}
-            wrapT={THREE.RepeatWrapping}/>
+            wrapT={THREE.RepeatWrapping} />
         </meshBasicMaterial>
       </mesh>
     );

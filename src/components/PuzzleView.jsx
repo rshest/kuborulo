@@ -1,9 +1,9 @@
-import THREE, {Vector3, Vector2, Plane} from 'three';
-import React, {PureComponent} from 'react';
+import THREE, { Vector3, Vector2, Plane } from 'three';
+import React, { PureComponent } from 'react';
 import Rx from 'rxjs';
 import React3 from 'react-three-renderer';
 
-import {Board} from '../model/Board';
+import { Board } from '../model/Board';
 
 import PathView from './PathView.jsx';
 import CubeView from './CubeView.jsx';
@@ -12,9 +12,11 @@ import BoardView from './BoardView.jsx';
 
 import levels from '../../data/levels.json';
 
-import {CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
+import {
+  CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
   LIGHT_OFFSET, BACKGROUND_COLOR, CAMERA_FOV,
-  AMBIENT_COLOR, LIGHT_COLOR, CUBE_ROLL_DURATION} from '../constants';
+  AMBIENT_COLOR, LIGHT_COLOR, CUBE_ROLL_DURATION
+} from '../constants';
 
 export default class PuzzleView extends PureComponent {
   constructor(props, context) {
@@ -25,16 +27,16 @@ export default class PuzzleView extends PureComponent {
       let board = new Board(level);
       let sol = board.solve();
       level.solution = Board.pathToText(sol.result);
-    } 
+    }
 
     const {x, y} = level.start;
     const face = level.start.faces !== undefined ? level.start.faces[0] : 0;
 
     const {width, height} = level;
-    const camDist = (Math.max(width, height) + 1)*CELL_SIDE*1.2;
+    const camDist = (Math.max(width, height) + 1) * CELL_SIDE * 1.2;
 
     this.state = {
-      camLatitude: Math.PI*0.5,
+      camLatitude: Math.PI * 0.5,
       camLongitude: 0.7,
       camDist,
 
@@ -53,7 +55,7 @@ export default class PuzzleView extends PureComponent {
       const {cubeX, cubeY, cubeFace, selectX, selectY, path} = this.state;
       const pathPtIdx = Board.findPointOnPath(selectX, selectY, x, y, face, path);
       const dir = Board.getDir(selectX - cubeX, selectY - cubeY);
-      const pos = {x: cubeX, y: cubeY, face: cubeFace};
+      const pos = { x: cubeX, y: cubeY, face: cubeFace };
 
       if (pathPtIdx >= 0) {
         // undo part of the path
@@ -62,12 +64,14 @@ export default class PuzzleView extends PureComponent {
       } else if (dir !== undefined) {
         //  move cube
         const {face} = Board.move(pos, dir);
-        this.setState({cubeX: selectX, cubeY: selectY, 
-          cubeFace: face, path: [...path, dir]});
+        this.setState({
+          cubeX: selectX, cubeY: selectY,
+          cubeFace: face, path: [...path, dir]
+        });
       } else {
         //  move camera
-        down = true; 
-        sx = e.clientX; 
+        down = true;
+        sx = e.clientX;
         sy = e.clientY;
       }
     };
@@ -80,28 +84,27 @@ export default class PuzzleView extends PureComponent {
 
     window.onmousemove = (e) => {
       e.preventDefault();
-      
+
       if (down) {
         let dx = e.clientX - sx;
         let dy = e.clientY - sy;
-        const camLatitude  = this.state.camLatitude + dx*0.01;
-        let camLongitude = this.state.camLongitude - dy*0.01;
+        const camLatitude = this.state.camLatitude + dx * 0.01;
+        let camLongitude = this.state.camLongitude - dy * 0.01;
         camLongitude = Math.min(Math.max(0.2, camLongitude), 1.2);
 
-        this.setState({camLatitude, camLongitude});
+        this.setState({ camLatitude, camLongitude });
         sx += dx;
         sy += dy;
       } else {
-        mouse.x =  (e.clientX/VIEW_WIDTH )*2 - 1;
-        mouse.y = -(e.clientY/VIEW_HEIGHT)*2 + 1;
+        mouse.x = (e.clientX / VIEW_WIDTH) * 2 - 1;
+        mouse.y = -(e.clientY / VIEW_HEIGHT) * 2 + 1;
         raycaster.setFromCamera(mouse, this.camera);
         if (raycaster.ray.intersectPlane(plane, intersection)) {
-          const selectX = Math.floor(intersection.x/CELL_SIDE);
-          const selectY = Math.floor(intersection.z/CELL_SIDE);
-          if (selectX >= 0 && selectY >= 0 && 
-            selectX < width && selectY < height) 
-          {
-            this.setState({selectX, selectY});
+          const selectX = Math.floor(intersection.x / CELL_SIDE);
+          const selectY = Math.floor(intersection.z / CELL_SIDE);
+          if (selectX >= 0 && selectY >= 0 &&
+            selectX < width && selectY < height) {
+            this.setState({ selectX, selectY });
           }
         }
       }
@@ -111,7 +114,7 @@ export default class PuzzleView extends PureComponent {
 
   getCameraLookAt() {
     const {width, height} = this.state.level;
-    return new Vector3(width*CELL_SIDE*0.5,  LOOKAT_HEIGHT, height*CELL_SIDE*0.5);
+    return new Vector3(width * CELL_SIDE * 0.5, LOOKAT_HEIGHT, height * CELL_SIDE * 0.5);
   }
 
   getCameraPosition() {
@@ -119,18 +122,18 @@ export default class PuzzleView extends PureComponent {
     const {camLatitude, camLongitude, camDist} = this.state;
     const sinLongitude = Math.sin(camLongitude);
     const pos = new Vector3(
-      Math.cos(camLatitude )*sinLongitude*camDist + lookAt.x, 
-      Math.cos(camLongitude)*camDist + lookAt.y, 
-      Math.sin(camLatitude )*sinLongitude*camDist + lookAt.z);
-    return pos;        
+      Math.cos(camLatitude) * sinLongitude * camDist + lookAt.x,
+      Math.cos(camLongitude) * camDist + lookAt.y,
+      Math.sin(camLatitude) * sinLongitude * camDist + lookAt.z);
+    return pos;
   }
 
   solveLevel() {
     const {level} = this.state;
     const {x, y} = level.start;
     const face = level.start.faces !== undefined ? level.start.faces[0] : 0;
-    this.setState({cubeX: x, cubeY: y, cubeFace: face, path: []});
-    this.pathAnim({x, y, face}, Board.textToPath(level.solution));
+    this.setState({ cubeX: x, cubeY: y, cubeFace: face, path: [] });
+    this.pathAnim({ x, y, face }, Board.textToPath(level.solution));
   }
 
   pathAnim(startPos, path, undo = false) {
@@ -140,25 +143,26 @@ export default class PuzzleView extends PureComponent {
     this.pathAnim$ = Rx.Observable.from(path)
       .scan(Board.move, startPos)
       .zip(Rx.Observable.from(path),
-           Rx.Observable.interval(CUBE_ROLL_DURATION).timeInterval())
+      Rx.Observable.interval(CUBE_ROLL_DURATION).timeInterval())
       .subscribe(([pos, dir]) => {
         const curPath = this.state.path;
         const newPath = undo ? curPath.slice(0, -1) : [...curPath, +dir];
         this.setState({
-          cubeX:    pos.x,
-          cubeY:    pos.y,
+          cubeX: pos.x,
+          cubeY: pos.y,
           cubeFace: pos.face,
-          path:     newPath});
+          path: newPath
+        });
       });
   }
 
   render() {
-    const {level, selectX, selectY, 
+    const {level, selectX, selectY,
       cubeX, cubeY, cubeFace,
       path} = this.state;
     const lookAt = this.getCameraLookAt();
     const lightPos = lookAt.clone().add(LIGHT_OFFSET);
-    
+
     return (
       <React3
         width={VIEW_WIDTH}
@@ -182,7 +186,7 @@ export default class PuzzleView extends PureComponent {
             name="mainCamera"
             ref={(cam) => this.camera = cam}
             />
-          <ambientLight color={AMBIENT_COLOR}/>
+          <ambientLight color={AMBIENT_COLOR} />
           <directionalLight
             color={LIGHT_COLOR}
             intensity={0.8}
@@ -193,27 +197,27 @@ export default class PuzzleView extends PureComponent {
             shadowCameraNear={100}
             shadowCameraFar={500}
             shadowCameraLeft={-150}
-            shadowCameraBottom={-150} 
+            shadowCameraBottom={-150}
             shadowCameraRight={150}
             shadowCameraTop={150}
             shadowBias={0.002}
             shadowMapWidth={1024}
             shadowMapHeight={1024}
-          />
-          
-          <BoardView level={level}/>
-          <PathView 
+            />
+
+          <BoardView level={level} />
+          <PathView
             path={path}
             cellsX={level.width}
             cellsY={level.height}
             startX={level.start.x}
             startY={level.start.y}
-          />
-          <CellSelector 
-            level={level} 
-            cellX={selectX} 
-            cellY={selectY}/>
-          <CubeView 
+            />
+          <CellSelector
+            level={level}
+            cellX={selectX}
+            cellY={selectY} />
+          <CubeView
             cubeX={cubeX}
             cubeY={cubeY}
             cubeFace={cubeFace}
@@ -224,4 +228,3 @@ export default class PuzzleView extends PureComponent {
   }
 }
 
- 

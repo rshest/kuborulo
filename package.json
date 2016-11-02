@@ -5,24 +5,18 @@
   "author": "Ruslan Shestopalyuk",
   "license": "ISC",
   "main": "index.js",
-
   "scripts": {
     "start": "webpack-dev-server --colors --progress --hot",
     "build": "webpack --colors --progress",
     "test": "webpack-dev-server --colors --progress --hot --content-base spec --config webpack.config.test.js --port 8088"
   },
-  
   "keywords": [
     "game",
     "puzzle",
     "cubes",
     "3d"
   ],
-  
   "devDependencies": {
-    "@types/react": "^0.14.43",
-    "@types/react-dom": "^0.14.18",
-    "@types/three": "0.0.24",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-runtime": "^6.15.0",
@@ -39,7 +33,6 @@
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
-  
   "dependencies": {
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
