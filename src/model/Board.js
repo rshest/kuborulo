@@ -167,24 +167,24 @@ class Board {
     return res;
   }
 
-  solve() {
+  static solve(level) {
     const FREE      = 0;
     const BLOCKED   = 1;
     const TARGET    = 2;
 
-    const w         = this.level.width;
-    const h         = this.level.height;
+    const w         = level.width;
+    const h         = level.height;
     const w2        = w + 2;
     const h2        = h + 2;
-    const start     = this.level.start;
-    const target    = this.level.target;
+    const start     = level.start;
+    const target    = level.target;
     const begPos    = (start.y + 1)*w2 + start.x + 1;
     const endPos    = (target.y + 1)*w2 + target.x + 1;
     const moveOffs  = [1, w2, -1, -w2];
     const stackSize = w*h + 1;
     const begFace   = start.faces ? start.faces[0] : 0;    
     const endFace   = target.faces ? target.faces[0] : FACE.ANY;
-    const targetDepth = begPos == endPos ? w*h - 1 : w*h - 2
+    const targetDepth = begPos == endPos ? w*h - 1 : w*h - 2;
 
 
     let cells = new Array(w2*h2).fill(BLOCKED);

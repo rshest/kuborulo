@@ -100,8 +100,7 @@ describe('Board', () => {
       }
     };
 
-    let board0 = new Board(conf0);
-    let sol = board0.solve();
+    let sol = Board.solve(conf0);
     expect(sol.type).toEqual('solution');
     expect(sol.result).toEqual([1, 2, 3]);
   });
@@ -121,8 +120,7 @@ describe('Board', () => {
       }
     };
 
-    let board0 = new Board(conf0);
-    let sol = board0.solve();
+    let sol = Board.solve(conf0);
     expect(sol.type).toEqual('solution');
     expect(sol.result).toEqual([
       1,
@@ -149,8 +147,7 @@ describe('Board', () => {
       }
     };
 
-    let board0 = new Board(conf0);
-    let sol = board0.solve();
+    let sol = Board.solve(conf0);
     expect(sol.type).toEqual('solution');
     expect(sol.result).toEqual([
       1,
@@ -178,8 +175,7 @@ describe('Board', () => {
       }
     };
 
-    let board0 = new Board(conf0);
-    expect(Board.pathToText(board0.solve().result)).toEqual('ESENESSSWNWSWNNN');
+    expect(Board.pathToText(Board.solve(conf0).result)).toEqual('ESENESSSWNWSWNNN');
   });
 
   it('should solve a 8x8 board', () => {
@@ -197,9 +193,7 @@ describe('Board', () => {
       }
     };
 
-    let board0 = new Board(conf0);
-    let sol = board0
-      .solve()
+    let sol = Board.solve(conf0)
       .result;
     expect(Board.pathToText(sol)).toEqual('EEESWSWNWSSSSSSENESENNWWNNESENNESSENESSWWSSENESENNNNNNWSWNWNEEE');
   });

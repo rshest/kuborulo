@@ -25,8 +25,7 @@ export default class PuzzleView extends PureComponent {
 
     let level = levels[props.levelIndex];
     if (level.solution === undefined) {
-      let board = new Board(level);
-      let sol = board.solve();
+      let sol = Board.solve(level);
       level.solution = Board.pathToText(sol.result);
     }
 
