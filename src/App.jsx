@@ -13,7 +13,7 @@ export default class App extends PureComponent {
     return (
       <div className="outer">
         <div className="container">
-          <PuzzleView ref={e => this.puzzleView = e} levelIndex={17} />
+          <PuzzleView ref={e => this.puzzleView = e} levelIndex={this.props.levelIndex} />
         </div>
         <div className="container">
           <Toolbar onSolve={() => this.puzzleView.solveLevel()} />
@@ -23,5 +23,8 @@ export default class App extends PureComponent {
   }
 }
 
+App.defaultProps = {
+  levelIndex: 17
+};
 
 

@@ -17,7 +17,9 @@ module.exports = {
   },
   
   devServer: {
-    inline: true
+    hot: true,
+    inline: true,
+    historyApiFallback: true
   },
 
   module: {

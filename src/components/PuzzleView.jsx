@@ -76,6 +76,7 @@ export default class PuzzleView extends PureComponent {
         sy = e.clientY;
       }
     };
+    
     window.onmouseup = () => down = false;
 
     let plane = new Plane(new Vector3(0, 1, 0), 0);
