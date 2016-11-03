@@ -105,7 +105,8 @@ export default class CubeView extends PureComponent {
       <group position={pos} quaternion={rot}>
         <mesh castShadow receiveShadow>
           <boxGeometry
-            width={CELL_SIDE} height={CELL_SIDE} depth={CELL_SIDE} />
+            width={CELL_SIDE} height={CELL_SIDE} depth={CELL_SIDE} 
+          />
           <meshLambertMaterial color={CUBE_COLOR}>
             <texture url="img/crate.png" />
           </meshLambertMaterial>
@@ -113,10 +114,12 @@ export default class CubeView extends PureComponent {
         <mesh
           position={new Vector3(0, CELL_SIDE * 0.5 + 0.05, 0)}
           rotation={new Euler(Math.PI / 2, 0, 0, 'XYZ')}
-          receiveShadow>
+          receiveShadow
+        >
           <planeGeometry width={CELL_SIDE} height={CELL_SIDE} />
           <meshLambertMaterial
-            side={THREE.DoubleSide} transparent color={TOP_FACE_COLOR}>
+            side={THREE.DoubleSide} transparent color={TOP_FACE_COLOR}
+          >
             <texture url="img/marked-face.png" />
           </meshLambertMaterial>
         </mesh>

@@ -25,18 +25,18 @@ export default class BoardView extends PureComponent {
         castShadow
         receiveShadow
         position={new Vector3(px, -BOARD_HEIGHT * 0.5, py)}
-        >
+      >
         <boxGeometry
           width={CELL_SIDE}
           height={BOARD_HEIGHT}
-          depth={CELL_SIDE} />
-        <meshLambertMaterial
-          color={color}>
+          depth={CELL_SIDE} 
+        />
+        <meshLambertMaterial color={color}>
           <texture
             url="img/board.png"
             wrapS={THREE.RepeatWrapping}
             wrapT={THREE.RepeatWrapping}
-            />
+          />
         </meshLambertMaterial>
       </mesh>
     );

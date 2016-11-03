@@ -89,23 +89,27 @@ export default class PathView extends PureComponent {
       <mesh
         position={new Vector3(x, 0.1, y)}
         rotation={new Euler(Math.PI / 2, 0, 0, 'XYZ')}
-        receiveShadow>
+        receiveShadow
+      >
         <planeGeometry
           width={cellsX * CELL_SIDE}
           height={cellsY * CELL_SIDE}
           widthSegments={cellsX}
           heightSegments={cellsY}
           ref={this.onGeometryRef}
-          faceVertexUvs={uvs} />
+          faceVertexUvs={uvs} 
+        />
         <meshLambertMaterial
           side={THREE.DoubleSide}
           transparent
           color={PATH_COLOR}
-          opacity={PATH_OPACITY}>
+          opacity={PATH_OPACITY}
+        >
           <texture
             url="img/path.png"
             wrapS={THREE.RepeatWrapping}
-            wrapT={THREE.RepeatWrapping} />
+            wrapT={THREE.RepeatWrapping} 
+          />
         </meshLambertMaterial>
       </mesh>
     );

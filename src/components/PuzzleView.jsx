@@ -7,7 +7,7 @@ import { Board } from '../model/Board';
 
 import PathView from './PathView.jsx';
 import CubeView from './CubeView.jsx';
-import CellSelector from './CellSelector.jsx';
+import CellMark from './CellMark.jsx';
 import BoardView from './BoardView.jsx';
 
 import levels from '../../data/levels.json';
@@ -15,7 +15,8 @@ import levels from '../../data/levels.json';
 import {
   CELL_SIDE, VIEW_WIDTH, VIEW_HEIGHT, LOOKAT_HEIGHT,
   LIGHT_OFFSET, BACKGROUND_COLOR, CAMERA_FOV,
-  AMBIENT_COLOR, LIGHT_COLOR, CUBE_ROLL_DURATION
+  AMBIENT_COLOR, LIGHT_COLOR, CUBE_ROLL_DURATION,
+  SEL_COLOR, SEL_OPACITY
 } from '../constants';
 
 export default class PuzzleView extends PureComponent {
@@ -174,7 +175,8 @@ export default class PuzzleView extends PureComponent {
         sortObjects={false}
         shadowMapEnabled
         shadowMapType={THREE.PCFShadowMap}
-        clearColor={BACKGROUND_COLOR}>
+        clearColor={BACKGROUND_COLOR}
+      >
         <scene>
           <perspectiveCamera
             aspect={1}
@@ -185,7 +187,7 @@ export default class PuzzleView extends PureComponent {
             lookAt={lookAt}
             name="mainCamera"
             ref={(cam) => this.camera = cam}
-            />
+          />
           <ambientLight color={AMBIENT_COLOR} />
           <directionalLight
             color={LIGHT_COLOR}
@@ -203,7 +205,7 @@ export default class PuzzleView extends PureComponent {
             shadowBias={0.002}
             shadowMapWidth={1024}
             shadowMapHeight={1024}
-            />
+          />
 
           <BoardView level={level} />
           <PathView
@@ -212,16 +214,20 @@ export default class PuzzleView extends PureComponent {
             cellsY={level.height}
             startX={level.start.x}
             startY={level.start.y}
-            />
-          <CellSelector
+          />
+          <CellMark
             level={level}
             cellX={selectX}
-            cellY={selectY} />
+            cellY={selectY}
+            side={CELL_SIDE}
+            color={SEL_COLOR}
+            opacity={SEL_OPACITY}
+          />
           <CubeView
             cubeX={cubeX}
             cubeY={cubeY}
             cubeFace={cubeFace}
-            />
+          />
         </scene>
       </React3>
     );

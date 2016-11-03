@@ -27,6 +27,16 @@ module.exports = {
     "jasmine/no-suite-callback-args": 2,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
+    "react/react-in-jsx-scope": "error",
+    "react/prefer-stateless-function": [
+      "error"
+    ],
+    "react/sort-comp": [
+      "error"
+    ],
+    "react/jsx-closing-bracket-location": [
+      "error"
+    ]
   },
   "plugins": [
     "react",

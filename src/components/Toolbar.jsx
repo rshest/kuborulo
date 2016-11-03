@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-export default class Toolbar extends PureComponent {
-  render() {
-    return (
-      <div>
-        <button className="toolbar-button" onClick={this.props.onSolve}>Solve</button>
-      </div>
-    );
-  }
-}
+const Toolbar = ({onSolve}) =>
+  ( 
+    <div>
+      <button className="toolbar-button" onClick={onSolve}>Solve</button>
+    </div>
+  );
+
+export default Toolbar;
