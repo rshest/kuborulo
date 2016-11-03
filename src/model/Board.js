@@ -12,15 +12,7 @@ const FACE = {
   BACK  : 5,  //  back cube face (facing away from viewer)
   ANY   : 6   //  wildcard, "any side"
 };
-const NUM_FACES = 6;
 const NUM_DIRS = 4; 
-
-const MOVE_MAPPING = [
-  [3, 0, 2, 5, 4, 1], // RIGHT
-  [4, 1, 0, 3, 5, 2], // DOWN
-  [1, 5, 2, 0, 4, 3], // LEFT
-  [2, 1, 5, 3, 0, 4]  // UP
-];
 
 const FACE_MOVEMENT = [
   [FACE.RIGHT, FACE.BACK, FACE.DOWN, FACE.FRONT, FACE.UP, FACE.LEFT], // roll right
@@ -42,11 +34,8 @@ export const MOVE_RESULT = {
   CONSTRAINED : 3,  //  move is constrained by the rules
 };
 
-function makeState({start: {x, y, faces}}) {
-  if (faces === undefined) {
-    faces = [0, 1, 2, 3, 4, 5]; 
-  }
-  return {x: x, y: y, faces: faces.slice(0)};
+function makeState({start: {x, y, face}}) {
+  return {x: x, y: y, face: face || 0};
 }
 
 /**
@@ -97,42 +86,38 @@ class Board {
     return -1;
   }
 
-  constructor(config) {
-    this.config = config;
-    this.state = makeState(config);
-    this.visited = new Array(config.width*config.height).fill(0);
+  constructor(level) {
+    this.level = level;
+    this.state = makeState(level);
+    this.visited = new Array(level.width*level.height).fill(0);
   }
 
   isInside(x, y) {
-    return x >= 0 && x < this.config.width &&
-      y >= 0 && y < this.config.height;
+    return x >= 0 && x < this.level.width &&
+      y >= 0 && y < this.level.height;
   }
 
   isVisited(x, y) {
-    return this.visited[x + y*this.config.width] == 1;
+    return this.visited[x + y*this.level.width] == 1;
   }
 
-  isAtTarget(x, y, faces) {
-    const target = this.config.target;
+  isAtTarget({x, y, face}) {
+    const target = this.level.target;
     if (x !== target.x || y !== target.y) {
       return false;
     }
-    if (target.faces !== undefined) {
-      for (let i = 0; i < NUM_FACES; i++) {
-        if (target.faces[i] !== undefined && faces[i] != target.faces[i]) {
-          return false;
-        }
-      }
-    }
+    if (target.faces !== undefined && target.faces[0] !== face) {
+      return false;
+    } 
     return true;
   }
 
   setVisited(x, y, val = 1) {
-    this.visited[x + y*this.config.width] = val;
+    this.visited[x + y*this.level.width] = val;
   }
 
   move(dir, ignoreConstraints = false) {
-    let toState = makeState(this.config);
+    let toState = makeState(this.level);
     let res = this.evalMove(this.state, toState, dir, ignoreConstraints);
     if ((res == MOVE_RESULT.CONSTRAINED && !ignoreConstraints) ||
         res == MOVE_RESULT.OUTSIDE) {
@@ -156,15 +141,12 @@ class Board {
     if (this.isVisited(x, y)) {
       res = MOVE_RESULT.CONSTRAINED;
     }
+    toState.face = FACE_MOVEMENT[dir - 1][fromState.face];
     
-    const mapping = MOVE_MAPPING[dir - 1];
-    for (let i = 0; i < NUM_FACES; i++) {
-      toState.faces[i] = fromState.faces[mapping[i]];
-    }
 
-    if (this.isAtTarget(x, y, toState.faces)) {
+    if (this.isAtTarget(toState)) {
       res = MOVE_RESULT.TARGET;
-    } else if (toState.faces[0] === 0) {
+    } else if (toState.face === 0) {
       res = MOVE_RESULT.CONSTRAINED;      
     }
     
@@ -174,13 +156,15 @@ class Board {
     return res;
   }
 
-  *moves() {
-    let toState = makeState(this.config);
+  moves() {
+    let toState = makeState(this.level);
+    let res = [];
     for (let dir of MOVE_DIRS) {
       if (this.evalMove(this.state, toState, dir) == MOVE_RESULT.SUCCESS) {
-        yield dir;
+        res.push(dir);
       }
     }
+    return res;
   }
 
   solve() {
@@ -188,18 +172,19 @@ class Board {
     const BLOCKED   = 1;
     const TARGET    = 2;
 
-    const w         = this.config.width;
-    const h         = this.config.height;
+    const w         = this.level.width;
+    const h         = this.level.height;
     const w2        = w + 2;
     const h2        = h + 2;
-    const start     = this.config.start;
-    const target    = this.config.target;
+    const start     = this.level.start;
+    const target    = this.level.target;
     const begPos    = (start.y + 1)*w2 + start.x + 1;
     const endPos    = (target.y + 1)*w2 + target.x + 1;
     const moveOffs  = [1, w2, -1, -w2];
     const stackSize = w*h + 1;
     const begFace   = start.faces ? start.faces[0] : 0;    
     const endFace   = target.faces ? target.faces[0] : FACE.ANY;
+    const targetDepth = begPos == endPos ? w*h - 1 : w*h - 2
 
 
     let cells = new Array(w2*h2).fill(BLOCKED);
@@ -239,14 +224,16 @@ class Board {
 
         next.face = FACE_MOVEMENT[dir][state.face];
         if (cell == TARGET) {
-          if (depth > bestDepth && (endFace == FACE.ANY || next.face == endFace)) {
+          if (depth > bestDepth && (endFace == FACE.ANY || 
+              next.face == endFace)) 
+          {
             // reached the target, build the solution
             let res = [];
             for (let i = 0; i <= depth; i++) {
               res.push(stack[i].dir);
             }
             bestDepth = depth;
-            if (depth >= w*h - 2) {
+            if (depth >= targetDepth) {
               // found the best solution possible
               return {type: 'solution', result: res};
             }
