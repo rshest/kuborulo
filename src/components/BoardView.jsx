@@ -32,10 +32,8 @@ export default class BoardView extends PureComponent {
           depth={CELL_SIDE} 
         />
         <meshLambertMaterial color={color}>
-          <texture
-            url="img/board.png"
-            wrapS={THREE.RepeatWrapping}
-            wrapT={THREE.RepeatWrapping}
+          <textureResource
+            resourceId="texture"
           />
         </meshLambertMaterial>
       </mesh>
@@ -50,7 +48,18 @@ export default class BoardView extends PureComponent {
         boxes.push(this.box(i, j));
       }
     }
-    return (<group>{boxes}</group>);
+    return (
+      <group>
+        <resources>
+          <texture
+            resourceId="texture"
+            url="img/board.png"
+            wrapS={THREE.RepeatWrapping}
+            wrapT={THREE.RepeatWrapping}
+          />
+        </resources>
+        {boxes}
+      </group>);
   }
 }
 
