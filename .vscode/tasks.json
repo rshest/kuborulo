@@ -24,6 +24,17 @@
       "args": [
 		    "test"
     	]      
+		},
+    {
+			"suppressTaskName": true,
+			"taskName": "build",
+      "showOutput": "always",
+      "isBuildCommand": false,
+			"isTestCommand": false,
+      "args": [
+        "run-script",
+		    "build"
+    	]      
 		}
 	]
 }

@@ -5,8 +5,6 @@ import { Router, Route, browserHistory } from 'react-router';
 
 ReactDOM.render((
   <Router history={browserHistory} >
-    <Route name="Kuborulo" path="/" component={App}>
-      <Route name="levels" path="/levels/:levelIndex" component={App} />
-    </Route>
+    <Route name="Kuborulo" path="/" component={App}/>
   </Router>
 ), document.getElementById('root')); 

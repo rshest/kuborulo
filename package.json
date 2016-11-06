@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --colors --progress --hot",
+    "start": "webpack-dev-server --colors --progress --hot --inline",
     "build": "webpack --colors --progress",
     "test": "webpack-dev-server --colors --progress --hot --content-base spec --config webpack.config.test.js --port 8088"
   },

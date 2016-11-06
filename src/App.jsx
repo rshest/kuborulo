@@ -10,10 +10,11 @@ export default class App extends PureComponent {
   }
 
   render() {
+    const levelIndex = this.props.location.query.level;
     return (
       <div className="outer">
         <div className="container">
-          <PuzzleView ref={e => this.puzzleView = e} levelIndex={this.props.levelIndex} />
+          <PuzzleView ref={e => this.puzzleView = e} levelIndex={levelIndex || this.props.levelIndex} />
         </div>
         <div className="container">
           <Toolbar onSolve={() => this.puzzleView.solveLevel()} />
