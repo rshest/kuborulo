@@ -8198,7 +8198,7 @@
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
 	  { history: _reactRouter.browserHistory },
-	  _react2.default.createElement(_reactRouter.Route, { name: 'Kuborulo', path: '/', component: _App2.default })
+	  _react2.default.createElement(_reactRouter.Route, { name: 'Kuborulo', path: '*', component: _App2.default })
 	), document.getElementById('root'));
 
 /***/ },
