@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --colors --progress --hot --inline",
-    "build": "webpack --colors --progress",
+    "build": "webpack -p --config webpack.config.prod.js",
     "test": "webpack-dev-server --colors --progress --hot --content-base spec --config webpack.config.test.js --port 8088"
   },
   "keywords": [
