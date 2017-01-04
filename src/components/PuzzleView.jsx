@@ -1,4 +1,4 @@
-import THREE, { Vector3, Vector2, Plane } from 'three';
+import { Vector3, Vector2, Plane, Raycaster, PCFShadowMap } from 'three';
 import React, { PureComponent } from 'react';
 import Rx from 'rxjs';
 import React3 from 'react-three-renderer';
@@ -79,7 +79,7 @@ export default class PuzzleView extends PureComponent {
     window.onmouseup = () => down = false;
 
     let plane = new Plane(new Vector3(0, 1, 0), 0);
-    let raycaster = new THREE.Raycaster();
+    let raycaster = new Raycaster();
     let mouse = new Vector2();
     let intersection = new Vector3();
 
@@ -174,7 +174,7 @@ export default class PuzzleView extends PureComponent {
         onAnimate={this.onAnimate}
         sortObjects={false}
         shadowMapEnabled
-        shadowMapType={THREE.PCFShadowMap}
+        shadowMapType={PCFShadowMap}
         clearColor={BACKGROUND_COLOR}
       >
         <scene>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import THREE, { Vector3 } from 'three';
+import { Vector3, RepeatWrapping } from 'three';
 
 import {
   CELL_SIDE, FACE_COLOR_ODD,
@@ -54,8 +54,8 @@ export default class BoardView extends PureComponent {
           <texture
             resourceId="texture"
             url="img/board.png"
-            wrapS={THREE.RepeatWrapping}
-            wrapT={THREE.RepeatWrapping}
+            wrapS={RepeatWrapping}
+            wrapT={RepeatWrapping}
           />
         </resources>
         {boxes}

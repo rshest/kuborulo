@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Rx from 'rxjs';
-import THREE, { Euler, Quaternion, Vector3, Matrix4 } from 'three';
+import { Euler, Quaternion, Vector3, Matrix4, DoubleSide } from 'three';
 import { Board } from '../model/Board';
 
 import { CELL_SIDE, CUBE_COLOR, TOP_FACE_COLOR, CUBE_ROLL_DURATION } from '../constants';
@@ -118,7 +118,7 @@ export default class CubeView extends PureComponent {
         >
           <planeGeometry width={CELL_SIDE} height={CELL_SIDE} />
           <meshLambertMaterial
-            side={THREE.DoubleSide} transparent color={TOP_FACE_COLOR}
+            side={DoubleSide} transparent color={TOP_FACE_COLOR}
           >
             <texture url="img/marked-face.png" />
           </meshLambertMaterial>

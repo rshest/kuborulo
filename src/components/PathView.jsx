@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import THREE, { Vector3, Vector2, Euler } from 'three';
+import { Vector3, Vector2, Euler, DoubleSide, RepeatWrapping } from 'three';
 import { MOVE_OFFSETS } from '../model/Board';
 
 import {
@@ -100,16 +100,16 @@ export default class PathView extends PureComponent {
           faceVertexUvs={uvs} 
         />
         <meshLambertMaterial
-          side={THREE.DoubleSide}
+          side={DoubleSide}
           transparent
           color={PATH_COLOR}
           opacity={PATH_OPACITY}
         >
-          <texture
-            url="img/path.png"
-            wrapS={THREE.RepeatWrapping}
-            wrapT={THREE.RepeatWrapping} 
-          />
+        <texture
+          url="img/path.png"
+          wrapS={RepeatWrapping}
+          wrapT={RepeatWrapping} 
+        />
         </meshLambertMaterial>
       </mesh>
     );

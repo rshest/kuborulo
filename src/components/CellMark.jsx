@@ -1,4 +1,4 @@
-import THREE, { Vector3, Euler } from 'three';
+import { Vector3, Euler, DoubleSide, RepeatWrapping } from 'three';
 import React from 'react';
 
 const CellMark = ({cellX, cellY, color, opacity, side}) => {
@@ -19,15 +19,15 @@ const CellMark = ({cellX, cellY, color, opacity, side}) => {
         dynamic 
       />
       <meshBasicMaterial
-        side={THREE.DoubleSide}
+        side={DoubleSide}
         transparent
         color={color}
         opacity={opacity}
       >
         <texture
           url="img/selection.png"
-          wrapS={THREE.RepeatWrapping}
-          wrapT={THREE.RepeatWrapping} 
+          wrapS={RepeatWrapping}
+          wrapT={RepeatWrapping} 
         />
       </meshBasicMaterial>
     </mesh>
